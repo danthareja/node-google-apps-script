@@ -1,13 +1,13 @@
 # Google Apps Script Sync
 >Download your Google Apps Script project locally and sync with GitHub
 
-# Getting Started
+## Getting Started
 
-## Requirements
+### Requirements
   - brew install npm
   - npm install -g google-apps-script-sync (not working yet)
 
-## Setup
+### Setup
 **You'll need to configure access to your Google Apps Script through the Google Drive SDK to use the tools provided by this script. Follow the instructions below to get up and running!**
 
 1. Activate the Drive API in a Google Developer Project and download Client credentials.
