@@ -1,0 +1,35 @@
+{
+  "name": "google-apps-script-sync",
+  "version": "0.0.1",
+  "description": "Download your Google Apps Script project locally and sync with GitHub",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/danthareja/google-apps-script-import-export.git"
+  },
+  "bin": {
+    "gasync": "index.js"
+  },
+  "keywords": [
+    "google",
+    "apps",
+    "script",
+    "github",
+    "source",
+    "version",
+    "control",
+    "import",
+    "export"
+  ],
+  "author": "Dan Thareja (danthareja@gmail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/danthareja/google-apps-script-import-export/issues"
+  },
+  "homepage": "https://github.com/danthareja/google-apps-script-import-export",
+  "dependencies": {
+    "colors": "^1.0.3",
+    "googleapis": "^2.0.2",
+    "q": "^1.2.0"
+  }
+}
