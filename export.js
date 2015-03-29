@@ -1,0 +1,51 @@
+var Q = require('q');
+var request = require('request');
+var google = require('googleapis');
+var authenticate = require('./auth');
+var clone = require('./clone')
+var config = require('./config');
+var util = require('./utils');
+
+getProjectById('1HYYCTMAXWlpWrWEeXAgs3DS1BIHdY5dN0FhNaHjpyk1FmJ4Es24wP6rC')
+  .then(clone)
+  .catch(util.logError)
+
+function getProjectById(fileId) {
+  var project = {};
+  var deferred = Q.defer();
+  authenticate().then(function(auth) {
+    return Q.all([getProjectTitle(fileId, auth), getProjectFiles(fileId, auth)])
+  })
+  .spread(function(title, files) {
+    project.title = title;
+    project.files = files;
+    deferred.resolve(project);
+  })
+  return deferred.promise;
+}
+
+function getProjectTitle(fileId, auth) {
+  var deferred = Q.defer();
+  var drive = google.drive({ version: 'v2', auth: auth });
+  drive.files.get({ fileId: fileId }, function(err, res) {
+    if (err) return deferred.reject('Error getting project');
+    deferred.resolve(res.title);
+  });
+  return deferred.promise;
+}
+
+function getProjectFiles(fileId, auth) {
+  var deferred = Q.defer();
+  var options = {
+    url: config.GOOGLE_SCRIPT_DOWNLOAD_URL + fileId,
+    qs :{ 'access_token' : auth.credentials.access_token }
+  };
+  request.get(options, function(err, res, body) {
+    if (err) return deferred.reject('Error getting project', err);
+    var project = JSON.parse(body)
+    if (!project.files) return deferred.reject('Looks like there are no files associated with this project. Check the id and try again.');
+    deferred.resolve(project.files);
+  });
+  return deferred.promise;
+}
+
