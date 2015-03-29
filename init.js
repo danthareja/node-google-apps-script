@@ -4,6 +4,7 @@ var readline = require('readline');
 var colors = require('colors');
 var OAuth2Client = require('googleapis').auth.OAuth2;
 var config = require('./config');
+var util = require('./utils');
 var auth = {}; // Persisted client credentials
 
 // Fail if a command line argument was passed in
@@ -12,23 +13,24 @@ if (!path) return console.log('Credentials path not found. Please input a path t
 
 // Main run block
 getCredentialsFromFile(path)
-.then(authenticateWithGoogle)
-.then(saveAuthenticationConfig)
-.then(shutdownSafely)
-.catch(logError);
+  .then(authenticateWithGoogle)
+  .then(saveAuthenticationConfig)
+  .then(util.shutdownSafely)
+  .catch(util.logError);
 
 function getCredentialsFromFile(path) {
   var deferred = Q.defer();
   fs.readFile(path, function(err, res) {
-    if (err) deferred.reject('Could not read path to credentials file. Please check your path and try again');
-    if (!res) deferred.reject('Credentials not found. Please check your path and try again');
+    if (err) return deferred.reject('Could not read path to credentials file. Please check your path and try again');
+    if (!res) return deferred.reject('Credentials not found. Please check your path and try again');
 
     var credentials = JSON.parse(res);
-    if (!credentials.web) deferred.reject('Path did not include correct credentials. Please check that you downloaded the right JSON credentials.');
+    if (!credentials.web) return deferred.reject('Path did not include correct credentials. Please check that you downloaded the right JSON credentials.');
 
     // Add important auth information to persist
     auth.client_id = credentials.web.client_id;
     auth.client_secret = credentials.web.client_secret;
+    auth.redirect_uri = credentials.web.redirect_uris[0];
 
     return deferred.resolve(credentials.web);
   });
@@ -54,7 +56,7 @@ function authenticateWithGoogle(credentials) {
 
   function getAccessToken(code) {
     oauth2Client.getToken(code, function(err, tokens) {
-      if (err) deferred.reject('Error while trying to retrieve access token', err);
+      if (err) return deferred.reject('Error while trying to retrieve access token', err);
       auth.refresh_token = tokens.refresh_token;
       deferred.resolve();
     });
@@ -66,20 +68,8 @@ function saveAuthenticationConfig() {
   var deferred = Q.defer();
   fs.writeFile(config.STORAGE_FILE, JSON.stringify(auth, "", 2), function(err, res) {
     if (err) return deferred.reject('Could not store authentication config. Please try again.');
-    console.log('Authorization successful! Ready to sync.'.green);
+    console.log('Authentication successful! Ready to sync.'.green);
     deferred.resolve();
   })
   return deferred.promise;
 }
-
-function shutdownSafely(){
-  process.stdin.destroy();
-  process.exit(0);
-}
-
-function logError(err) {
-  console.log(err.red);
-  process.stdin.destroy();
-  process.exit(0);
-}
-
