@@ -5,8 +5,9 @@ var authenticate = require('./lib/authenticate');
 var clone = require('./lib/clone')
 var config = require('./lib/config');
 var util = require('./lib/utils');
+var error = moduleErrors();
 
-var fileId = util.getArgumentFromCli(2, 'Script file ID not found. Please input an ID and try again.');
+var fileId = util.getArgumentFromCli(2, error.fileIdNotFound);
 
 getProjectById(fileId)
   .then(clone)
@@ -44,11 +45,17 @@ function getProjectFiles(fileId, auth) {
     qs :{ 'access_token' : auth.credentials.access_token }
   };
   request.get(options, function(err, res, body) {
-    if (err) return deferred.reject('Error getting project');
+    if (err) return deferred.reject(err);
     var project = JSON.parse(body)
-    if (!project.files) return deferred.reject('Looks like there are no files associated with this project. Check the id and try again.');
+    if (!project.files) return deferred.reject(error.noFiles);
     deferred.resolve(project.files);
   });
   return deferred.promise;
 }
 
+function moduleErrors() {
+  return {
+    fileIdNotFound: 'Script file ID not found. Please input an ID and try again.',
+    noFiles: 'Looks like there are no files associated with this project. Check the id and try again.'
+  }
+}

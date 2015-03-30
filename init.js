@@ -5,9 +5,10 @@ var colors = require('colors');
 var OAuth2Client = require('googleapis').auth.OAuth2;
 var config = require('./lib/config');
 var util = require('./lib/utils');
+var error = moduleErrors();
 var auth = {}; // Persisted client credentials
 
-var path = util.getArgumentFromCli(2, 'Credentials path not found. Please input a path to your downloaded JSON credentials and try again.');
+var path = util.getArgumentFromCli(2, error.pathNotFound);
 
 // Main run block
 getCredentialsFromFile(path)
@@ -19,11 +20,11 @@ getCredentialsFromFile(path)
 function getCredentialsFromFile(path) {
   var deferred = Q.defer();
   fs.readFile(path, function(err, res) {
-    if (err) return deferred.reject('Could not read path to credentials file. Please check your path and try again');
-    if (!res) return deferred.reject('Credentials not found. Please check your path and try again');
+    if (err) return deferred.reject(error.wrongCredentialPath);
+    if (!res) return deferred.reject();
 
     var credentials = JSON.parse(res);
-    if (!credentials.web) return deferred.reject('Path did not include correct credentials. Please check that you downloaded the right JSON credentials.');
+    if (!credentials.web) return deferred.reject(error.wrongCredentialsFile);
 
     // Add important auth information to persist
     auth.client_id = credentials.web.client_id;
@@ -54,7 +55,7 @@ function authenticateWithGoogle(credentials) {
 
   function getAccessToken(code) {
     oauth2Client.getToken(code, function(err, tokens) {
-      if (err) return deferred.reject('Error while trying to retrieve access token', err);
+      if (err) return deferred.reject(err);
       auth.refresh_token = tokens.refresh_token;
       deferred.resolve();
     });
@@ -65,9 +66,19 @@ function authenticateWithGoogle(credentials) {
 function saveAuthenticationConfig() {
   var deferred = Q.defer();
   fs.writeFile(config.STORAGE_FILE, JSON.stringify(auth, "", 2), function(err, res) {
-    if (err) return deferred.reject('Could not store authentication config. Please try again.');
+    if (err) return deferred.reject(err);
     console.log('Authentication successful! Ready to sync.'.green);
     deferred.resolve();
   })
   return deferred.promise;
 }
+
+function moduleErrors() {
+  return {
+    pathNotFound: 'Credentials path not found. Please input a path to your downloaded JSON credentials and try again.',
+    wrongCredentialPath: 'Could not read path to credentials file. Please check your path and try again',
+    credentialsNotFound: 'Credentials not found. Please check your path and try again',
+    wrongCredentialsFile: 'Path did not include correct credentials. Please check that you downloaded the right JSON credentials.'
+  }
+}
+
