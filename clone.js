@@ -2,6 +2,7 @@ var Q = require('q');
 var fs = require('fs');
 var path = require('path');
 var rimraf = require('rimraf');
+var mkdirp = require('mkdirp');
 var config = require('./config');
 var util = require('./utils');
 
@@ -9,6 +10,7 @@ var util = require('./utils');
 module.exports = function(project) {
   return removeExistingProject(project)
     .then(createProjectFolder)
+    .then(writeManifest)
     .then(addProjectFiles)
     .catch(util.logError);
 };
@@ -20,14 +22,26 @@ function removeExistingProject(project) {
     if (err) return deferred.reject(err);
     deferred.resolve(project);
   });
-  // Add filepath property to be referencedgit s the promise chain
+  // Add filepath property to be referenced down the promise chain
+  console.log(filepath);
   project.filepath = filepath;
   return deferred.promise;
 }
 
 function createProjectFolder(project) {
   var deferred = Q.defer();
-  fs.mkdir(project.filepath, function(err) {
+  mkdirp(project.filepath, function(err) {
+    if (err) return deferred.reject(err);
+    deferred.resolve(project);
+  });
+  return deferred.promise;
+}
+
+// Persist project in JSON format so we can update easily
+function writeManifest(project) {
+  var deferred = Q.defer();
+  var filepath = path.join(project.filepath, config.CLONE_MANIFEST_NAME);
+  fs.writeFile(filepath, JSON.stringify(project, "", 2), function(err) {
     if (err) return deferred.reject(err);
     deferred.resolve(project);
   });
@@ -37,8 +51,8 @@ function createProjectFolder(project) {
 function addProjectFiles(project) {
   var writeFilePromises = project.files.map(function(file) {
     var deferred = Q.defer();
-    var filename = file.name + getFileExtension(file);
-    fs.writeFile(path.join(project.filepath, filename), file.source, function(err) {
+    var filepath = path.join(project.filepath, file.name + getFileExtension(file));
+    fs.writeFile(filepath, file.source, function(err) {
       if (err) return deferred.reject(err);
       deferred.resolve();
     });

@@ -21,6 +21,7 @@ function getProjectById(fileId) {
   .spread(function(title, files) {
     project.title = title;
     project.files = files;
+    project.id = fileId;
     deferred.resolve(project);
   })
   return deferred.promise;
