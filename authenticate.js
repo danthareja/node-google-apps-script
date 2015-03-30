@@ -4,6 +4,12 @@ var OAuth2Client = require('googleapis').auth.OAuth2;
 var config = require('./config');
 var util = require('./utils');
 
+module.exports = function() {
+  return getCredentials()
+    .then(createAuthClient)
+    .catch(util.logError);
+};
+
 function getCredentials() {
   var deferred = Q.defer();
   fs.readFile(config.STORAGE_FILE, function(err, res){
@@ -25,9 +31,3 @@ function createAuthClient(credentials) {
   })
   return deferred.promise;
 }
-
-module.exports = function() {
-  return getCredentials()
-    .then(createAuthClient)
-    .catch(util.logError);
-};

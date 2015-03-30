@@ -7,9 +7,7 @@ var config = require('./config');
 var util = require('./utils');
 var auth = {}; // Persisted client credentials
 
-// Fail if a command line argument was passed in
-var path = process.argv[2];
-if (!path) return console.log('Credentials path not found. Please input a path to your downloaded JSON credentials and try again.'.red);
+var path = util.getArgumentFromCli(2, 'Credentials path not found. Please input a path to your downloaded JSON credentials and try again.');
 
 // Main run block
 getCredentialsFromFile(path)

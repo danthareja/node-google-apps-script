@@ -1,12 +1,14 @@
 var Q = require('q');
 var request = require('request');
 var google = require('googleapis');
-var authenticate = require('./auth');
+var authenticate = require('./authenticate');
 var clone = require('./clone')
 var config = require('./config');
 var util = require('./utils');
 
-getProjectById('1HYYCTMAXWlpWrWEeXAgs3DS1BIHdY5dN0FhNaHjpyk1FmJ4Es24wP6rC')
+var fileId = util.getArgumentFromCli(2, 'Script file ID not found. Please input an ID and try again.');
+
+getProjectById(fileId)
   .then(clone)
   .catch(util.logError)
 
@@ -41,7 +43,7 @@ function getProjectFiles(fileId, auth) {
     qs :{ 'access_token' : auth.credentials.access_token }
   };
   request.get(options, function(err, res, body) {
-    if (err) return deferred.reject('Error getting project', err);
+    if (err) return deferred.reject('Error getting project');
     var project = JSON.parse(body)
     if (!project.files) return deferred.reject('Looks like there are no files associated with this project. Check the id and try again.');
     deferred.resolve(project.files);
