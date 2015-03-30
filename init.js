@@ -3,8 +3,8 @@ var fs = require('fs');
 var readline = require('readline');
 var colors = require('colors');
 var OAuth2Client = require('googleapis').auth.OAuth2;
-var config = require('./config');
-var util = require('./utils');
+var config = require('./lib/config');
+var util = require('./lib/utils');
 var auth = {}; // Persisted client credentials
 
 var path = util.getArgumentFromCli(2, 'Credentials path not found. Please input a path to your downloaded JSON credentials and try again.');

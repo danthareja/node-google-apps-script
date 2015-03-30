@@ -1,10 +1,10 @@
 var Q = require('q');
 var request = require('request');
 var google = require('googleapis');
-var authenticate = require('./authenticate');
-var clone = require('./clone')
-var config = require('./config');
-var util = require('./utils');
+var authenticate = require('./lib/authenticate');
+var clone = require('./lib/clone')
+var config = require('./lib/config');
+var util = require('./lib/utils');
 
 var fileId = util.getArgumentFromCli(2, 'Script file ID not found. Please input an ID and try again.');
 
