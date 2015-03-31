@@ -1,0 +1,28 @@
+#!/usr/bin/env node
+var program = require('commander');
+var path = require('path');
+var pkg = require('../package.json');
+var commands = path.join(__dirname, '../lib/commands');
+
+program
+  .version(pkg.version);
+
+program
+  .command('init <path/to/client/secret.json>')
+  .description('initialize credentials')
+  .action(require(commands + '/init'));
+
+program
+  .command('download <fileId>')
+  .description('download a Google Apps Script project')
+  .alias('clone')
+  .action(require(commands + '/download'));
+
+
+program
+  .command('upload')
+  .description('upload back to Google Drive. Run from root of project directory')
+  .alias('push')
+  .action(require(commands + '/upload'));
+
+program.parse(process.argv);

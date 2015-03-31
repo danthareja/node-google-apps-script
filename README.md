@@ -5,7 +5,7 @@
 
 ### Requirements
   - brew install npm
-  - npm install -g google-apps-script-sync (not working yet)
+  - npm install -g google-apps-script-sync
 
 ### Setup
 **You'll need to configure access to your Google Apps Script through the Google Drive SDK to use the tools provided by this script. Follow the instructions below to get up and running!**
@@ -23,3 +23,18 @@
   - After visiting that url, you'll be redirected to a blank/dummy page. Look in the url for `?code=XXXXXXX`. Copy everything after the `=` and paste it back in Terminal and hit enter.
 
 3. That's it! You won't be asked for the code again unless the credentials expire.
+
+### Usage
+#### Download a project
+Run `gas download <fileId>`(alias: clone) in Terminal to clone down an existing Google Apps Script project.
+
+`<fileId>` can be found buried in the url of your App Script project when editing in browser. Look for the weird string after /d/ and before /edit/. It should look something like this: "scripts.google.com/xxxx/d/**[YOUR_FILE_ID_HERE]**/edit?"
+
+This command will create an exact copy of your project on your local file system and store it your current working directory (just like git clone). cd into it and open up in your favorite development environment. **NOTE: This command will overwrite an existing folder with the same name as your project.** If you have made changes locally, make sure to upload them before running download again or your changes will be lost.
+
+NOTE: In addition to your project files, you'll notice a `manifest.json` file . This should not be messed with unless you know exactly what you're doing.
+
+#### Upload a project
+Run `gas upload`(alias: push) in Terminal from within your project directory to push back your Google Apps Script project. Any files deleted locally will also be deleted in Drive, and any files created locally will be added to Drive.
+
+GASync can only upload projects that it has first downloaded. If you want to start a new project, you'll have to create it in the web editor, get it's ID and download it.

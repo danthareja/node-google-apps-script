@@ -1,14 +1,13 @@
 {
   "name": "google-apps-script-sync",
-  "version": "0.0.1",
-  "description": "Download your Google Apps Script project locally and sync with GitHub",
-  "main": "index.js",
+  "version": "0.1.0",
+  "description": "Easily download/upload your Google Apps Script from the command line",
   "repository": {
     "type": "git",
-    "url": "https://github.com/danthareja/google-apps-script-import-export.git"
+    "url": "https://github.com/danthareja/google-apps-script-sync.git"
   },
   "bin": {
-    "gasync": "index.js"
+    "gas": "./bin/gas"
   },
   "keywords": [
     "google",
@@ -19,7 +18,9 @@
     "version",
     "control",
     "import",
-    "export"
+    "export",
+    "download",
+    "upload"
   ],
   "author": "Dan Thareja (danthareja@gmail.com)",
   "license": "MIT",
@@ -29,6 +30,7 @@
   "homepage": "https://github.com/danthareja/google-apps-script-import-export",
   "dependencies": {
     "colors": "^1.0.3",
+    "commander": "^2.7.1",
     "googleapis": "^2.0.2",
     "mkdirp": "^0.5.0",
     "node-dir": "^0.1.6",
