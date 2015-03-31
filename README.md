@@ -32,9 +32,11 @@ Run `gas download <fileId>`(alias: clone) in Terminal to clone down an existing 
 
 This command will create an exact copy of your project on your local file system and store it your current working directory (just like git clone). cd into it and open up in your favorite development environment. **NOTE: This command will overwrite an existing folder with the same name as your project.** If you have made changes locally, make sure to upload them before running download again or your changes will be lost.
 
+.gs files will be converted to .js files when downloaded locally. This is normal and they will be converted back when re-uploaded.
+
 NOTE: In addition to your project files, you'll notice a `manifest.json` file . This should not be messed with unless you know exactly what you're doing.
 
 #### Upload a project
-Run `gas upload`(alias: push) in Terminal from within your project directory to push back your Google Apps Script project. Any files deleted locally will also be deleted in Drive, and any files created locally will be added to Drive.
+Run `gas upload`(alias: push) in Terminal from within your project directory to push back your Google Apps Script project. Any files deleted locally will also be deleted in Drive, and any files created locally will be added to Drive (you can only create .js and .html files, make sure any new script files are .js when created locally).
 
 GASync can only upload projects that it has first downloaded. If you want to start a new project, you'll have to create it in the web editor, get it's ID and download it.
