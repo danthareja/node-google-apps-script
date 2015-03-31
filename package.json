@@ -1,13 +1,13 @@
 {
-  "name": "google-apps-script-sync",
+  "name": "node-google-apps-script",
   "version": "0.1.0",
-  "description": "Easily download/upload your Google Apps Script from the command line",
+  "description": "The easiest way to download/upload your Google Apps Script from the command line",
   "repository": {
     "type": "git",
     "url": "https://github.com/danthareja/google-apps-script-sync.git"
   },
   "bin": {
-    "gas": "./bin/gas"
+    "gaps": "./bin/gaps"
   },
   "keywords": [
     "google",
@@ -20,14 +20,16 @@
     "import",
     "export",
     "download",
-    "upload"
+    "upload",
+    "push",
+    "clone"
   ],
   "author": "Dan Thareja (danthareja@gmail.com)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/danthareja/google-apps-script-import-export/issues"
+    "url": "https://github.com/danthareja/node-google-apps-script/issues"
   },
-  "homepage": "https://github.com/danthareja/google-apps-script-import-export",
+  "homepage": "https://github.com/danthareja/node-google-apps-script",
   "dependencies": {
     "colors": "^1.0.3",
     "commander": "^2.7.1",
@@ -37,5 +39,8 @@
     "q": "^1.2.0",
     "request": "^2.54.0",
     "rimraf": "^2.3.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }

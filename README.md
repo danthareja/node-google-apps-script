@@ -1,12 +1,10 @@
-# Google Apps Script Sync
->Download your Google Apps Script project locally and sync with GitHub
-
-## Getting Started
+## GAPS (Google APps Script)
+>The easiest way to download/upload your Google Apps Script.
 
 ### Requirements
-  - brew install npm
-  - npm install -g google-apps-script-sync
-
+  - [node v0.12.x](https://nodejs.org/download/)
+  - `npm install -g node-google-apps-script`
+    
 ### Setup
 **You'll need to configure access to your Google Apps Script through the Google Drive SDK to use the tools provided by this script. Follow the instructions below to get up and running!**
 
@@ -18,7 +16,7 @@
   - Select `Web application -> Create Client ID.` Don't worry about the Authorized JavaScript origins and Authorized redirect URIs, the defaults are fine.
   - Download your credentials. Click `Download JSON`. We'll need this file in a minute.
 
-2. Run `node init.js /path/to/credentials.json` in Terminal, where `/path/to/credentials.json` is the path to the file you just downloaded during the last part in step (1). Follow the instructions on screen.
+2. Run `gaps init /path/to/credentials.json` in Terminal, where `/path/to/credentials.json` is the path to the file you just downloaded during the last part in step (1). Follow the instructions on screen.
   - You'll see a message in terminal: "Please visit the following url in your browser". A consent screen will pop up with the project name you entered earlier.
   - After visiting that url, you'll be redirected to a blank/dummy page. Look in the url for `?code=XXXXXXX`. Copy everything after the `=` and paste it back in Terminal and hit enter.
 
@@ -26,17 +24,24 @@
 
 ### Usage
 #### Download a project
-Run `gas download <fileId>`(alias: clone) in Terminal to clone down an existing Google Apps Script project.
+Run `gaps download <fileId>`(alias: clone) in Terminal to clone down an existing Google Apps Script project.
 
 `<fileId>` can be found buried in the url of your App Script project when editing in browser. Look for the weird string after /d/ and before /edit/. It should look something like this: "scripts.google.com/xxxx/d/**[YOUR_FILE_ID_HERE]**/edit?"
 
-This command will create an exact copy of your project on your local file system and store it your current working directory (just like git clone). cd into it and open up in your favorite development environment. **NOTE: This command will overwrite an existing folder with the same name as your project.** If you have made changes locally, make sure to upload them before running download again or your changes will be lost.
+This command will create an exact copy of your project on your local file system and store it your current working directory (just like git clone). cd into it and open up in your favorite development environment. **This command will overwrite an existing folder with the same name as your project.** If you have made changes locally, make sure to upload them before running download again or your changes will be lost.
 
-.gs files will be converted to .js files when downloaded locally. This is normal and they will be converted back when re-uploaded.
+NOTE: You'll notice that .gs files will be converted to .js files when downloaded locally. This is normal and they will be converted back when re-uploaded.
 
-NOTE: In addition to your project files, you'll notice a `manifest.json` file . This should not be messed with unless you know exactly what you're doing.
+NOTE: In addition to your project files, you'll notice a `.manifest.json` file . This should not be messed with unless you know exactly what you're doing.
 
 #### Upload a project
-Run `gas upload`(alias: push) in Terminal from within your project directory to push back your Google Apps Script project. Any files deleted locally will also be deleted in Drive, and any files created locally will be added to Drive (you can only create .js and .html files, make sure any new script files are .js when created locally).
+Run `gaps upload`(alias: push) in Terminal from within your project directory to push back your Google Apps Script project. 
 
-GASync can only upload projects that it has first downloaded. If you want to start a new project, you'll have to create it in the web editor, get it's ID and download it.
+Any files deleted locally will also be deleted in Drive, and any files created locally will be added to Drive. Google Apps Script only supports .js and .html files right now. Make sure any new script files are .js (not .gs) when created locally.
+
+GAPS can only upload projects that it has first downloaded. If you want to start a new project, you'll have to create it in the web editor, get it's ID and `gaps download` it.
+
+### Development
+If you catch a bug, please let me know! Submit an issue or pull request and I'll happy to address it. I'm also thinking about extending this to a version control system.
+
+If you want to develop, clone down the repo and have at it! You can run `npm link` from the root directory of the repo to symlink to your local copy. You'll have to uninstall the production version first `npm uninstall -g node-google-apps-script`
