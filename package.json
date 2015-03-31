@@ -9,6 +9,7 @@
   "bin": {
     "gaps": "./bin/gaps"
   },
+  "preferGlobal": true,
   "keywords": [
     "google",
     "apps",
