@@ -9,6 +9,7 @@
   "bin": {
     "gaps": "./bin/gaps"
   },
+  "main": "index",
   "preferGlobal": true,
   "keywords": [
     "google",
@@ -39,7 +40,8 @@
     "node-dir": "^0.1.6",
     "q": "^1.2.0",
     "request": "^2.54.0",
-    "rimraf": "^2.3.2"
+    "rimraf": "^2.3.2",
+    "underscore": "^1.8.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
