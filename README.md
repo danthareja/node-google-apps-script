@@ -36,7 +36,7 @@ You'll notice that `.gs` files will be converted to `.js` files when downloaded 
 [Due to limitations in Google's API](https://developers.google.com/apps-script/import-export#limitations) GAPS will only works for projects that are "standalone", and not "container bound" to a specific document. Your project is container bound if it can _only_ be accessed via "Tools > Script Editor" in a specific Google Apps document (e.g. Sheets, Docs, Forms). If you see your script in your main Drive folder, it's a standalone and GAPS will totally work with it. [Learn more about container bound projects here.](https://developers.google.com/apps-script/guides/bound)
 
 ### Upload a project
-Run `gaps upload`(alias: push) in Terminal from __the root of your project's directory_ to push it back up Google Drive.
+Run `gaps upload`(alias: push) in Terminal from __the root of your project's directory_ to push it back up Google Drive. You'll have to refresh your browser to view the changes.
 
 Any files deleted locally will also be deleted in Drive, and any files created locally will be added to Drive. Google Apps Script only supports .js and .html files right now. Make sure any new script files are .js (not .gs) when created locally.
 
