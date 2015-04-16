@@ -5,24 +5,36 @@ var pkg = require('../package.json');
 var commands = path.join(__dirname, '../lib/commands');
 
 program
-  .version(pkg.version);
+  .version(pkg.version)
+  .on('*', function(name) {
+    console.log('\''+name+'\' is not a known command.');
+    program.outputHelp();
+    process.exit(1);
+  });
 
 program
   .command('init <path/to/client/secret.json>')
-  .description('initialize credentials')
+  .description('Authorize Google API')
   .action(require(commands + '/init'));
 
 program
   .command('download <fileId>')
-  .description('download a Google Apps Script project')
+  .description('Download a Google Apps Script project')
   .alias('clone')
   .action(require(commands + '/download'));
 
 
 program
   .command('upload')
-  .description('upload back to Google Drive. Run from root of project directory')
+  .description('Upload back to Google Drive. Run from root of project directory')
   .alias('push')
   .action(require(commands + '/upload'));
 
-program.parse(process.argv);
+program
+  .parse(process.argv);
+
+if (program.args.length < 1 ) {
+  console.log('No command specified.');
+  program.outputHelp();
+  process.exit(2);
+}
