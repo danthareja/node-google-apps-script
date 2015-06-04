@@ -45,6 +45,10 @@ The inspiration for this project came from Google's lack of version control. By 
 
 **Best practice:** add .manifest.json to .gitignore. There is no need to push it to GitHub as the manifest is only needed locally for gaps to work correctly.
 
+## Integration
+
+[Here's a Sublime Text Custom Build System to trigger gaps](https://gist.github.com/Shrugs/41dd61b577d11a45611b)
+
 ## Development
 If you catch a bug or have a question, please let me know! Submit an issue or pull request and I'll happy to address it. I'm also thinking about extending this to a version control system.
 
