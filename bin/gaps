@@ -13,8 +13,15 @@ program
   });
 
 program
-  .command('init <path/to/client/secret.json>')
+  .command('auth <path/to/client/secret.json>')
   .description('Authorize Google API')
+  .action(require(commands + '/auth'));
+
+program
+  .command('init <fileId>')
+  .description('Initialize blank project. The project must exist, but only contain the defalt Code.gs')
+  .alias('create')
+  .alias('new')
   .action(require(commands + '/init'));
 
 program
@@ -22,7 +29,6 @@ program
   .description('Download a Google Apps Script project')
   .alias('clone')
   .action(require(commands + '/download'));
-
 
 program
   .command('upload')

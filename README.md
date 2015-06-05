@@ -4,7 +4,7 @@
 ## Requirements
   - [node v0.12.x](https://nodejs.org/download/)
   - `npm install -g node-google-apps-script`
-    
+
 ## Setup
 **You'll need to configure access to your Google Apps Script through the Google Drive SDK to use the tools provided by this script. Follow the instructions below to get up and running!**
 
