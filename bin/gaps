@@ -36,6 +36,12 @@ program
   .alias('push')
   .action(require(commands + '/upload'));
 
+
+program
+  .command('sync')
+  .description('Downloads manifest from Google Drive')
+  .action(require(commands + '/sync'));
+
 program
   .parse(process.argv);
 
