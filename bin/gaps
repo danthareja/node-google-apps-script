@@ -18,27 +18,26 @@ program
   .action(require(commands + '/auth'));
 
 program
-  .command('init <fileId>')
+  .command('init <fileId> [subdir]')
   .description('Initialize blank project. The project must exist, but only contain the defalt Code.gs')
   .alias('create')
-  .alias('new')
   .action(require(commands + '/init'));
 
 program
-  .command('download <fileId>')
+  .command('download <fileId> [subdir]')
   .description('Download a Google Apps Script project')
   .alias('clone')
   .action(require(commands + '/download'));
 
 program
-  .command('upload')
+  .command('upload [subdir]')
   .description('Upload back to Google Drive. Run from root of project directory')
   .alias('push')
   .action(require(commands + '/upload'));
 
 
 program
-  .command('sync')
+  .command('sync [subdir]')
   .description('Downloads manifest from Google Drive')
   .action(require(commands + '/sync'));
 
