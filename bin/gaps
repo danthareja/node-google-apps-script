@@ -15,7 +15,12 @@ program
 program
   .command('auth <path/to/client/secret.json>')
   .description('Authorize Google API')
-  .action(require(commands + '/auth'));
+  .action(function(p) {
+    require(commands + '/auth')(p).then(function() {
+      process.exit(0);
+    });
+  });
+
 
 program
   .command('init <fileId> [subdir]')
