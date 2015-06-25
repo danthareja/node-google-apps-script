@@ -37,13 +37,13 @@ program
   .action(require(commands + '/download'));
 
 program
-  .command('upload [subdir]')
+  .command('upload')
   .description('Upload back to Google Drive. Run from root of project directory')
   .alias('push')
   .action(require(commands + '/upload'));
 
 program
-  .command('sync [subdir]')
+  .command('sync')
   .description('Downloads manifest from Google Drive')
   .action(require(commands + '/sync'));
 
