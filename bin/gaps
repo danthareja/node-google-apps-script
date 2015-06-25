@@ -14,24 +14,26 @@ program
 
 program
   .command('auth <path/to/client/secret.json>')
+  .option('-w, --use-webserver [webserver]',
+    'Use a local webserver to capture oauth code')
+  .option('-p, --port [port]', 'Port to use for webserver')
   .description('Authorize Google API')
-  .action(function(p) {
-    require(commands + '/auth')(p).then(function() {
+  .action(function(clientSecretPath, options) {
+    var useWebserver = options.useWebserver !== 'false';
+    require(commands + '/auth')(clientSecretPath, useWebserver).then(function() {
       process.exit(0);
     });
   });
 
-
 program
   .command('init <fileId> [subdir]')
   .description('Initialize blank project. The project must exist, but only contain the defalt Code.gs')
-  .alias('create')
+  .alias('project')
   .action(require(commands + '/init'));
 
 program
-  .command('download <fileId> [subdir]')
+  .command('download [fileId] [subdir]')
   .description('Download a Google Apps Script project')
-  .alias('clone')
   .action(require(commands + '/download'));
 
 program
@@ -39,7 +41,6 @@ program
   .description('Upload back to Google Drive. Run from root of project directory')
   .alias('push')
   .action(require(commands + '/upload'));
-
 
 program
   .command('sync [subdir]')
