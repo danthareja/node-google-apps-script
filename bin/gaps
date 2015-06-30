@@ -26,10 +26,18 @@ program
   });
 
 program
-  .command('init <fileId> [subdir]')
-  .description('Initialize blank project. The project must exist, but only contain the defalt Code.gs')
+  .command('init <fileId>')
+  .option('-t, --target [target]')
+  .option('-s, --subdir [subdir]')
+  .option('-o, --overwrite')
+  .description('Initialize blank project. The external Apps Script project must exist.')
   .alias('project')
-  .action(require(commands + '/init'));
+  .action(function(fileId, options) {
+    return require(commands + '/init')(fileId,
+                                       options.subdir,
+                                       options.target,
+                                       options.overwrite);
+  });
 
 program
   .command('download [fileId] [subdir]')
@@ -37,15 +45,10 @@ program
   .action(require(commands + '/download'));
 
 program
-  .command('upload')
+  .command('upload [target]')
   .description('Upload back to Google Drive. Run from root of project directory')
   .alias('push')
   .action(require(commands + '/upload'));
-
-program
-  .command('sync')
-  .description('Downloads manifest from Google Drive')
-  .action(require(commands + '/sync'));
 
 program
   .parse(process.argv);
