@@ -4,6 +4,7 @@ var path = require('path');
 var pkg = require('../package.json');
 var commands = path.join(__dirname, '../lib/commands');
 var target = require(commands + '/target');
+var _ = require('lodash');
 
 program
   .version(pkg.version)
@@ -33,14 +34,19 @@ program
   .description('Initialize blank project. The external Apps Script project must exist.')
   .alias('project')
   .action(function(options) {
-    return require(commands + '/init')(options.subdir, options.overwrite);
+    return require(commands + '/init')(options);
   });
 
 program
-  .command('target [command] [target] [fileId]')
+  .command('target <command> <target> <fileId>')
+  .option('-s, --subdir [subdir]')
   .description('Add a new Deployment Target')
-  .action(function(command, t, fileId) {
-    return target[command](t, fileId);
+  .action(function(command, t, fileId, options) {
+    if (!_.has(target, command)) {
+      console.log(command.red + ' is not a valid command for target'.red);
+      process.exit(1);
+    }
+    return target[command](t, fileId, options);
   });
 
 program
@@ -51,7 +57,7 @@ program
 program
   .command('upload [target]')
   .description('Upload back to Google Drive. Run from root of project directory')
-  .alias('push')
+  .alias('build')
   .action(require(commands + '/upload'));
 
 program
