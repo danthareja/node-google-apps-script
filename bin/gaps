@@ -27,26 +27,21 @@ program
   });
 
 program
-  .command('init <fileId>')
+  .command('init')
   .option('-s, --subdir [subdir]')
   .option('-o, --overwrite')
   .description('Initialize blank project. The external Apps Script project must exist.')
   .alias('project')
-  .action(function(fileId, options) {
-    return require(commands + '/init')(fileId,
-                                       options.subdir,
-                                       options.overwrite);
+  .action(function(options) {
+    return require(commands + '/init')(options.subdir, options.overwrite);
   });
 
 program
-  .command('target add <target> <fileId>')
+  .command('target [command] [target] [fileId]')
   .description('Add a new Deployment Target')
-  .action(target.add);
-
-program
-  .command('target remove <target>')
-  .description('Add a new Deployment Target')
-  .action(target.remove);
+  .action(function(command, t, fileId) {
+    return target[command](t, fileId);
+  });
 
 program
   .command('download [fileId] [subdir]')
