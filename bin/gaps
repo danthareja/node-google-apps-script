@@ -3,6 +3,7 @@ var program = require('commander');
 var path = require('path');
 var pkg = require('../package.json');
 var commands = path.join(__dirname, '../lib/commands');
+var target = require(commands + '/target');
 
 program
   .version(pkg.version)
@@ -27,7 +28,6 @@ program
 
 program
   .command('init <fileId>')
-  .option('-t, --target [target]')
   .option('-s, --subdir [subdir]')
   .option('-o, --overwrite')
   .description('Initialize blank project. The external Apps Script project must exist.')
@@ -35,9 +35,18 @@ program
   .action(function(fileId, options) {
     return require(commands + '/init')(fileId,
                                        options.subdir,
-                                       options.target,
                                        options.overwrite);
   });
+
+program
+  .command('target add <target> <fileId>')
+  .description('Add a new Deployment Target')
+  .action(target.add);
+
+program
+  .command('target remove <target>')
+  .description('Add a new Deployment Target')
+  .action(target.remove);
 
 program
   .command('download [fileId] [subdir]')
