@@ -61,6 +61,11 @@ program
   .action(require(commands + '/upload'));
 
 program
+  .command('add <package>')
+  .description('adds a package')
+  .action(require(commands + '/getPackage'));
+
+program
   .parse(process.argv);
 
 if (program.args.length < 1 ) {
