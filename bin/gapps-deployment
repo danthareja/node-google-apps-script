@@ -1,0 +1,54 @@
+#!/usr/bin/env node
+var program = require('commander');
+var path = require('path');
+var commands = path.join(__dirname, '../lib/commands');
+var deployment = require(commands + '/deployment');
+var packages = require(commands + '/packages');
+var _ = require('lodash');
+
+program
+  .command('add <deployment> <fileId>')
+  .option('-k, --key [key]', 'Project Key')
+  .option('-s, --subdir [subdir]', 'Subdirectory for deployment files')
+  .description('Add a new Deployment Target')
+  .action(deployment.add);
+
+program
+  .command('remove <deployment>')
+  .description('Remove a Deployment Target')
+  .action(deployment.remove);
+
+program
+  .command('deploy <deployment>')
+  .description('Upload back to Google Drive. Run from root of project directory')
+  .alias('upload')
+  .action(require(commands + '/upload'));
+
+program
+  .command('package <command> [package]')
+  .option('-d, --deployment <deployment>', 'Which deployment to modify')
+  .option('-a, --all', 'Add to all packages (default)')
+  .description('Add a package to a deployment')
+  .action(function(command, p, options) {
+    if (!_.has(packages, command)) {
+      console.log(command.red + ' is not a valid command for package'.red);
+      process.exit(1);
+  }
+    return packages[command](p, options);
+  });
+
+program
+  .on('*', function(name) {
+    console.log('\''+name+'\' is not a known command.');
+    program.outputHelp();
+    process.exit(1);
+  });
+
+program
+  .parse(process.argv);
+
+if (program.args.length < 1 ) {
+  console.log('No command specified.');
+  program.outputHelp();
+  process.exit(2);
+}

@@ -7,7 +7,9 @@
     "url": "https://github.com/danthareja/google-apps-script-sync.git"
   },
   "bin": {
-    "gaps": "./bin/gaps"
+    "gapps": "./bin/gapps",
+    "gapps-deployment": "./bin/gapps-deployment",
+    "gapps-project": "./bin/gapps-project"
   },
   "main": "index",
   "preferGlobal": true,
@@ -42,7 +44,7 @@
     "mkdirp": "^0.5.1",
     "node-dir": "^0.1.6",
     "request": "^2.54.0",
-    "rimraf": "^2.3.2"
+    "rimraf": "^2.4.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
