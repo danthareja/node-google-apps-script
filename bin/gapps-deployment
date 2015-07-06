@@ -8,26 +8,26 @@ var upload = require(commands + '/upload');
 var _ = require('lodash');
 
 program
-  .command('add <deployment> <fileId>')
+  .command('add <deploymentId> <fileId>')
   .option('-k, --key [key]', 'Project Key')
   .option('-s, --subdir [subdir]', 'Subdirectory for deployment files')
   .description('Add a new Deployment Target')
   .action(deployment.add);
 
 program
-  .command('remove <deployment>')
+  .command('remove <deploymentId>')
   .description('Remove a Deployment Target')
   .action(deployment.remove);
 
 program
-  .command('deploy <deployment>')
+  .command('deploy <deploymentId>')
   .description('Upload back to Google Drive. Run from root of project directory')
   .alias('upload')
   .action(upload);
 
 program
   .command('package <command> [package]')
-  .option('-d, --deployment <deployment>', 'Which deployment to modify')
+  .option('-d, --deployment <deploymentId>', 'Which deployment to modify')
   .option('-a, --all', 'Add to all packages (default)')
   .description('Add a package to a deployment')
   .action(function(command, p, options) {

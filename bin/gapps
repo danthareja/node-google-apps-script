@@ -11,9 +11,9 @@ program
 program
   .command('auth <path/to/client/secret.json>')
   .option('-b, --no-launch-browser',
-    'Use a local webserver to capture oauth code')
+    'Do not use a local webserver to capture oauth code and instead require copy/paste')
   .option('-p, --port [port]', 'Port to use for webserver')
-  .description('Authorize Google API')
+  .description('Authorize gapps to use the Google Drive API')
   .action(function(clientSecretPath, options) {
     console.log(options);
     require(commands + '/auth')(clientSecretPath, options.launchBrowser)
