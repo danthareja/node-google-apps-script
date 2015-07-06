@@ -10,13 +10,13 @@ program
 
 program
   .command('auth <path/to/client/secret.json>')
-  .option('-w, --use-webserver [webserver]',
+  .option('-b, --no-launch-browser',
     'Use a local webserver to capture oauth code')
   .option('-p, --port [port]', 'Port to use for webserver')
   .description('Authorize Google API')
   .action(function(clientSecretPath, options) {
-    var useWebserver = options.useWebserver !== 'false';
-    require(commands + '/auth')(clientSecretPath, useWebserver)
+    console.log(options);
+    require(commands + '/auth')(clientSecretPath, options.launchBrowser)
       .then(function() {
         process.exit(0);
       });
