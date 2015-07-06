@@ -4,6 +4,7 @@ var path = require('path');
 var commands = path.join(__dirname, '../lib/commands');
 var deployment = require(commands + '/deployment');
 var packages = require(commands + '/packages');
+var upload = require(commands + '/upload');
 var _ = require('lodash');
 
 program
@@ -22,7 +23,7 @@ program
   .command('deploy <deployment>')
   .description('Upload back to Google Drive. Run from root of project directory')
   .alias('upload')
-  .action(require(commands + '/upload'));
+  .action(upload);
 
 program
   .command('package <command> [package]')
@@ -36,6 +37,11 @@ program
   }
     return packages[command](p, options);
   });
+
+program
+  .command('oauth-callback-url [deployments]')
+  .description('Get the OAuth Callback URL for a deployment, or all of them')
+  .action(deployment.oauthCallbackUrl);
 
 program
   .on('*', function(name) {
