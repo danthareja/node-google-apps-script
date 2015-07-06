@@ -190,6 +190,16 @@ This will mark the provided package as a dependency to that deployment and
 download the files to `./gapps_packages/<package>`. They will be included when
 uploading to Google Drive.
 
+### gapps deployment package update
+
+```
+  Usage: gapps deployment package update [package] [deploymentId]
+
+  Update a package to the latest version
+```
+
+Simply re-downloads the latest version of the packages required by the deployment.
+
 ### gapps deployment oauth-callback-url
 
 ```
