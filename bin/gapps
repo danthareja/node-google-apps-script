@@ -15,7 +15,6 @@ program
   .option('-p, --port [port]', 'Port to use for webserver')
   .description('Authorize gapps to use the Google Drive API')
   .action(function(clientSecretPath, options) {
-    console.log(options);
     require(commands + '/auth')(clientSecretPath, options.launchBrowser)
       .then(function() {
         process.exit(0);
