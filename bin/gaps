@@ -42,14 +42,13 @@ program
   .action(upload);
 
 program
-  .command('init')
+  .command('init <fileId>')
+  .option('-k, --key [key]')
   .option('-s, --subdir [subdir]')
   .option('-o, --overwrite')
   .description('Initialize blank project. The external Apps Script project must exist.')
   .alias('create')
-  .action(function(options) {
-    return require(commands + '/init')(options);
-  });
+  .action(require(commands + '/init'));
 
 program
   .command('oauth-callback-url [deployments]')
