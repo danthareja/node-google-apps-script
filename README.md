@@ -1,6 +1,10 @@
 # gaps (Google APps Script)
 >The easiest way to develop Google Apps Script projects from the command line.
 
+Using **gaps**, you can develop your Apps Script locally and push files to the
+Apps Script servers. This allows you to use any editor of your choice and
+bundle modern webdev patterns in to Apps Script development.
+
 ## Requirements
   - [node v0.12.x](https://nodejs.org/download/)
   - `npm install -g node-google-apps-script`
@@ -121,12 +125,12 @@ Performs the authentication flow described in the quickstart above.
 ### gaps init
 
 ```
-  Usage: gaps project init|create [options]
+  Usage: gaps init|create <fileId> [options]
 
   Initialize blank project. The external Apps Script project must exist.
 
   Options:
-
+    -k, --key [key]
     -s, --subdir [subdir]
     -o, --overwrite
 ```
@@ -141,9 +145,8 @@ Creates `config.json`, which contains information about your apps script project
   Upload back to Google Drive. Run from root of project directory
 ```
 
-Upload the project to Google Drive. Sources files from `./gaps_src`,
-`./gaps_deployments`, and also includes any packages that the deployment
-depends on.
+Upload the project to Google Drive. Sources files from `./src` or the
+configured subdirectory.
 
 ### gaps oauth-callback-url
 
@@ -153,8 +156,7 @@ depends on.
   Get the OAuth Callback URL for a project
 ```
 
-For each deployment, returns the OAuth Callback URL required by most 3rd-party
-OAuth services.
+Returns the OAuth Callback URL required by most 3rd-party OAuth services.
 
 ## Development
 Please submit any bugs to the Issues page. Pull Requests also welcome.

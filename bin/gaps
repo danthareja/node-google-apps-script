@@ -3,8 +3,9 @@ var program = require('commander');
 var path = require('path');
 var pkg = require('../package.json');
 var commands = path.join(__dirname, '../lib/commands');
-var deployment = require(commands + '/deployment');
 var upload = require(commands + '/upload');
+var init = require(commands + '/init');
+var oauthCallbackUrl = require(commands + '/oauthCallbackUrl');
 var _ = require('lodash');
 
 program
@@ -24,19 +25,7 @@ program
   });
 
 program
-  .command('add <deploymentId> <fileId>')
-  .option('-k, --key [key]', 'Project Key')
-  .option('-s, --subdir [subdir]', 'Subdirectory for deployment files')
-  .description('Add a new Deployment Target')
-  .action(deployment.add);
-
-program
-  .command('remove <deploymentId>')
-  .description('Remove a Deployment Target')
-  .action(deployment.remove);
-
-program
-  .command('upload [deploymentId]')
+  .command('upload')
   .description('Upload back to an Apps Script project in Google Drive. Run from root of project directory')
   .alias('deploy')
   .action(upload);
@@ -51,9 +40,9 @@ program
   .action(require(commands + '/init'));
 
 program
-  .command('oauth-callback-url [deployments]')
-  .description('Get the OAuth Callback URL for a deployment, or all of them')
-  .action(deployment.oauthCallbackUrl);
+  .command('oauth-callback-url')
+  .description('Get the OAuth Callback URL for a project')
+  .action(require(commands + '/oauthCallbackUrl'));
 
 program
   .parse(process.argv);
