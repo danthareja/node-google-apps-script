@@ -80,12 +80,12 @@ You can pass the option `--no-launch-browser` to generate a url that will give y
 1. Run `gapps project init` within your project directory. This will create `config.json`
 2. Get your project ID from the address bar, located after `/d/` and before `/edit`.
   - It should look something like `1RRks8iFLH1K9RN58Rt5RHo4-OEnUUDlPn-nN_cz4EcxK82eo2NsLb_ba`
-3. Run `gapps deployment add <deploymentId> <projectId>`
-  - For example, `gapps deployment add dev 1RRks8iFLH1K9RN58Rt5RHo4-OEnUUDlPn-nN_cz4EcxK82eo2NsLb_ba`
+3. Run `gapps add <deploymentId> <projectId>`
+  - For example, `gapps add dev 1RRks8iFLH1K9RN58Rt5RHo4-OEnUUDlPn-nN_cz4EcxK82eo2NsLb_ba`
 
 ### 5. Upload New Files
 
-Awesome! Now, to upload changes, run `gapps deployment deploy <deploymentId>`.
+Awesome! Now, to upload changes, run `gapps deploy <deploymentId>`.
 You should then be able to reload your script and see changes.
 
 
