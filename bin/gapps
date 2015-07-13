@@ -4,7 +4,6 @@ var path = require('path');
 var pkg = require('../package.json');
 var commands = path.join(__dirname, '../lib/commands');
 var deployment = require(commands + '/deployment');
-var packages = require(commands + '/packages');
 var upload = require(commands + '/upload');
 var _ = require('lodash');
 
@@ -37,23 +36,10 @@ program
   .action(deployment.remove);
 
 program
-  .command('deploy <deploymentId>')
+  .command('upload [deploymentId]')
   .description('Upload back to an Apps Script project in Google Drive. Run from root of project directory')
-  .alias('upload')
+  .alias('deploy')
   .action(upload);
-
-program
-  .command('package <command> [package]')
-  .option('-d, --deployment <deploymentId>', 'Which deployment to modify. Defaults to all.')
-  .option('-a, --all', 'Add to all packages (default)')
-  .description('Add a package to a deployment')
-  .action(function(command, p, options) {
-    if (!_.has(packages, command)) {
-      console.log(command.red + ' is not a valid command for package'.red);
-      process.exit(1);
-  }
-    return packages[command](p, options);
-  });
 
 program
   .command('init')
