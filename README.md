@@ -79,9 +79,9 @@ You can pass the option `--no-launch-browser` to generate a url that will give y
 
 1. Run `gapps project init` within your project directory. This will create `config.json`
 2. Get your project ID from the address bar, located after `/d/` and before `/edit`.
-  - It should look something like `1RRks8iFLH1K9RN58Rt5RHo4-OEnUUDlPn-nN_cz4EcxK82eo2NsLb_ba`
+  - For example '//script.google.com/a/google.com/d/__abc123-xyz098__/edit?usp=drive_web'
 3. Run `gapps add <deploymentId> <projectId>`
-  - For example, `gapps add dev 1RRks8iFLH1K9RN58Rt5RHo4-OEnUUDlPn-nN_cz4EcxK82eo2NsLb_ba`
+  - For example, `gapps add dev abc123-xyz098`
 
 ### 5. Upload New Files
 
@@ -96,6 +96,9 @@ You should then be able to reload your script and see changes.
     need to deal with issues where the states locally and remotely are not in
     sync.
   - You also get the benefits of structuring code within directories
+	- Individual developers can have separate devevelopment Apps Script projects,
+	  and the overall solution can have shared tst, uat, prd targets with different
+		settings.
 
 ## Docs
 
@@ -109,13 +112,14 @@ You should then be able to reload your script and see changes.
   Options:
 
     -b, --no-launch-browser  Do not use a local webserver to capture oauth code
-                              and instead require copy/paste
+                              and instead require copy/paste of key returned in 
+															the browser after authorization completes.
     -p, --port [port]        Port to use for webserver
 ```
 
 Performs the authentication flow described in the quickstart above.
 
-### gapps project init
+### gapps init
 
 ```
   Usage: gapps project init|create [options]
@@ -130,7 +134,7 @@ Performs the authentication flow described in the quickstart above.
 
 Creates `config.json`, which contains information about your apps script project.
 
-### gapps deployment add
+### gapps add
 
 
 ```
@@ -153,7 +157,7 @@ different apps script projects.
 This command will also create the relevant `./gapps_deployments/<deploymentId>`
 folder where deployment-specific code can live.
 
-### gapps deployment deploy
+### gapps  deploy
 
 ```
   Usage: gaps deployment deploy|upload [options] <deploymentId>
@@ -175,7 +179,7 @@ depends on.
 
 Removes the deployment info from `config.json`
 
-### gapps deployment package add
+### gapps package add
 
 ```
   Usage: gapps deployment package add [package] [options]
@@ -190,7 +194,7 @@ This will mark the provided package as a dependency to that deployment and
 download the files to `./gapps_packages/<package>`. They will be included when
 uploading to Google Drive.
 
-### gapps deployment package update
+### gapps package update
 
 ```
   Usage: gapps deployment package update [package] [deploymentId]
@@ -200,7 +204,7 @@ uploading to Google Drive.
 
 Simply re-downloads the latest version of the packages required by the deployment.
 
-### gapps deployment oauth-callback-url
+### gapps oauth-callback-url
 
 ```
   Usage: gapps deployment oauth-callback-url [deployments]
@@ -245,13 +249,14 @@ message. Common causes for this are:
   - If there is a syntax error, the upload will fail.
 - The project does not exist yet.
   - Verify that the project exists in your Google Drive folder.
+	- If you have been added to an existing project, verify that the owner has shared the file with you with the "can edit" permission.
 - Missing server-side libraries
   - verify that any required Libraries (frequently `Underscore` or `OAuth2`) have been added
     to the Apps Script project
 - Authentication error
   - Verify that `~/.gapps` exists and has 4 values: `client_id`, `client_secret,
     `redirect_uri`, and `refresh_token`
-  - To reset authentication, delete `~/.gapps` and then perform the
+  - To reset authentication, 'rm ~/.gapps' and then perform the
     authentication steps in part #2 of the quickstart again.
 
 ## Extra Resources
