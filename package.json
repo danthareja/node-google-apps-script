@@ -7,9 +7,7 @@
     "url": "https://github.com/danthareja/google-apps-script-sync.git"
   },
   "bin": {
-    "gapps": "./bin/gapps",
-    "gapps-deployment": "./bin/gapps-deployment",
-    "gapps-project": "./bin/gapps-project"
+    "gapps": "./bin/gapps"
   },
   "main": "index",
   "preferGlobal": true,
