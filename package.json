@@ -4,7 +4,7 @@
   "description": "The easiest way to manage your Google Apps Script project from the command line",
   "repository": {
     "type": "git",
-    "url": "https://github.com/danthareja/google-apps-script-sync.git"
+    "url": "https://github.com/danthareja/node-google-apps-script.git"
   },
   "bin": {
     "gapps": "./bin/gapps"

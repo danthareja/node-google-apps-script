@@ -27,7 +27,7 @@ program
 program
   .command('upload')
   .description('Upload back to an Apps Script project in Google Drive. Run from root of project directory')
-  .alias('deploy')
+  .alias('push')
   .action(upload);
 
 program
