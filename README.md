@@ -205,7 +205,7 @@ message. Common causes for this are:
 
 ## Acknowledgements
 
-Huge thanks to [Shrugs](https://github.com/Shrugs) for a massive that bumped this project to v1.0
+Huge thanks to [Shrugs](https://github.com/Shrugs) for a massive PR that bumped this project to v1.0
 
 ## Extra Resources
 
