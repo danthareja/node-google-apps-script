@@ -1,55 +1,212 @@
-# GAPS (Google APps Script)
->The easiest way to download/upload any _existing_ Google Apps Script projects.
+# gapps (Google Apps Script)
+>The easiest way to develop Google Apps Script projects
+
+Using **gapps**, you can develop your Apps Script locally and push files to the Apps Script servers. This allows you to use any editor of your choice, version control, and other modern webdev patterns in to Apps Script development.
 
 ## Requirements
   - [node v0.12.x](https://nodejs.org/download/)
   - `npm install -g node-google-apps-script`
-    
-## Setup
-**You'll need to configure access to your Google Apps Script through the Google Drive SDK to use the tools provided by this script. Follow the instructions below to get up and running!**
 
-1. Activate the Drive API in a Google Developer Project and download Client credentials.
-  - Create a new project in the Google Developer Console for this tool to access your Google drive. [Using this link guides you through the process and activates the Drive API automatically.](https://console.developers.google.com/start/api?id=drive&credential=client_key)
-  - Make sure "Create a new project" is selected and click `Continue`. You'll end up on the Credentials page.
-  - Since this is a new project, you'll have to configure a simple consent screen. Select `Create new Client ID -> Web Application -> Configure consent screen`
-  - Select the correct address from the Email address dropdown and add a name of your choice to Product Name. All other fields are not required. Click `Continue`
-  - Select `Web application -> Create Client ID.` Don't worry about the Authorized JavaScript origins and Authorized redirect URIs, the defaults are fine.
-  - Download your credentials. Click `Download JSON`. We'll need this file in a minute.
+## Quickstart
 
-2. Run `gaps init /path/to/credentials.json` in Terminal, where `/path/to/credentials.json` is the path to the file you just downloaded during the last part in step (1). Follow the instructions on screen.
-  - You'll see a message in terminal: "Please visit the following url in your browser". A consent screen will pop up with the project name you entered earlier.
-  - After visiting that url, you'll be redirected to a blank/dummy page. Look in the url for `?code=XXXXXXX`. Copy everything after the `=` and paste it back in Terminal and hit enter.
+### 1. Create and Save a Blank Apps Script Project
 
-3. That's it! _You won't be asked for the code again unless the credentials expire._
+1. Head to [https://script.google.com](https://script.google.com) and create a new blank project.
+2. Save the mostly empty project and give it a name.
+  - Saving is important; the project is not in your Google Drive until it is saved.
 
-## Usage
-### Download a project
-Run `gaps download <fileId>`(alias: clone) in Terminal to clone down an existing Google Apps Script project.
+### 2. Get Google Drive Credentials
 
-`<fileId>` can be found buried in the url of your App Script project when editing in browser. Look for the weird string after /d/ and before /edit/. It should look something like this: "scripts.google.com/xxxx/d/**[YOUR_FILE_ID_HERE]**/edit?"
+You can do this one of two ways:
 
-This command will create an exact copy of your project on your local file system and store it your _current working directory_ (just like git clone). cd into it and open up in your favorite development environment! **This command will overwrite an existing folder with the same name as your project.**
+1. Add Drive permissions to the default Developer Console Project that
+  is created for each Apps Script project
+2. Use an independent Developer Console Project and enable the Drive
+  API
 
-You'll notice that `.gs` files will be converted to `.js` files when downloaded locally. This is normal and they will be converted back when re-uploaded. In addition to your project files, you'll also notice a `.manifest.json` file. Don't mess with this file and add it to `.gitignore` if you're uploading your project to GitHub.
+#### 2.1 Default Apps Script Developer Console Project
 
-#### Important Limitations
-[Due to limitations in Google's API](https://developers.google.com/apps-script/import-export#limitations) GAPS will only works for projects that are "standalone", and not "container bound" to a specific document. Your project is container bound if it can _only_ be accessed via "Tools > Script Editor" in a specific Google Apps document (e.g. Sheets, Docs, Forms). If you see your script in your main Drive folder, it's a standalone and GAPS will totally work with it. [Learn more about container bound projects here.](https://developers.google.com/apps-script/guides/bound)
+1. Access the automatically created apps script Developer Console Project by
+  1. `Resources` > `Developers Console Project`
+  1. Click on the blue link at the top (`project-name - api-project-##########`)
+    to access the correct Developer Console Project
+1. Enable the Google Drive API
+  1. Click `APIs & auth` in the left nav and then select `APIs`
+  1. Search for `Drive` and select the Google Drive API listing.
+  1. Click `Enable API`
+1. Acquire Google Drive Client Secret Credentials
+  1. In the `Credentials` section, select `Add credentials` and choose `OAuth 2.0 client ID`
+  1. In the menu that appears, choose `Other` for the `Application type`.
+  1. Give it any name you like and click `Create`.
+  1. Finally, download your credentials using the `Download as JSON` button to the right.
+    - Save these credentials to a location of your choosing; `~/Downloads` is fine.
+  1. You may close the Developer Console window.
 
-### Upload a project
-Run `gaps upload`(alias: push) in Terminal from __the root of your project's directory_ to push it back up Google Drive. You'll have to refresh your browser to view the changes.
+#### 2.2 Independent Developer Console Project
 
-Any files deleted locally will also be deleted in Drive, and any files created locally will be added to Drive. Google Apps Script only supports .js and .html files right now. Make sure any new script files are .js (not .gs) when created locally.
+1. Create a new Dev Console Project
+  1. Use [this link](https://console.developers.google.com/start/api?id=drive&credential=client_key) to create the project. It will auto-activate the Google Drive API.
+    - If you have multiple Google Accounts, append `&authuser=1` to the end of the url to choose which account to login with. Note that `authuser` is zero-indexed.
+  1. Make sure `Create a New Project` is selected and hit `Continue`.
+  1. Once the project has been created, click `Go to Credentials`.
+1. Acquire Google Drive Client Secret Credentials
+  1. Select `Add credentials`, choose the `OAuth 2.0 client ID` type
+  1. Click `Configure Consent Screen`.
+  1. Select your email address from the dropdown and assign your add-on a Project Name.
+    - This can always be changed later.
+  1. `Save` your Consent Screen
+  1. In the menu that appears, choose `Other` for the `Application type`.
+  1. Give it any name you like and click `Create`.
+  1. Finally, download your credentials using the `Download as JSON` button to the right.
+    - Save these credentials to a location of your choosing; `~/Downloads` is fine.
+  1. You may close the Developer Console window.
+    - To return to this project later, select `Resources` > `Developer Console Project` while editing your script. Then click the link at the top of the dialog to open the Developer Console with this project selected.
 
-### Version control
-The inspiration for this project came from Google's lack of version control. By having a local copy of your script, you can easily turn it into a git repo and manage it with GitHub.
+### 3. Authenticate `gapps`
 
-**Best practice:** add .manifest.json to .gitignore. There is no need to push it to GitHub as the manifest is only needed locally for gaps to work correctly.
+This process will set up Google Drive authentication to allow uploading and importing of the Apps Script project.
 
-## Integration
+1. Run `gapps auth path/to/client_secret_abcd.json`
+  - i.e. `gapps auth ~/Downloads/client_secret_1234567890-abcd.apps.googleusercontent.com.json`
+1. Follow the directions by clicking on the link generated by the script.
+1. After you're successfully authenticated, feel free to delete the `client_secret.json` credentials file.
 
-[Here's a Sublime Text Custom Build System to trigger gaps](https://gist.github.com/Shrugs/41dd61b577d11a45611b)
+You can pass the option `--no-launch-browser` to generate a url that will give you a code to paste back into the console. This is useful if you're using ssh to develop.
+
+### 4. Initialize your project
+
+This will create `gapps.config.json` and an empty directory for your source files.
+
+1. Get your project ID from the address bar, located after `/d/` and before `/edit`.
+  - For example, '//script.google.com/a/google.com/d/__abc123-xyz098__/edit?usp=drive_web'
+1. Navigate to a directory where your Apps Script project will live
+1. Run `gapps init <fileId>` within your project directory. 
+  - For example, `gapps init abc123-xyz098`
+
+### 5. Develop locally
+
+Start scripting and enjoy total freedom of your local dev environment and source control options! Create script files with a `.gs` or `.js` extension and html files with a `.html` extension
+
+### 6. Upload New Files
+
+Awesome! Now, to upload changes, run `gapps upload`.
+You should then be able to reload your Apps Script project in the browser and see changes.
+
+
+## Best Practices
+
+- Only upload to Google Drive and never edit files in the web IDE
+  - This way the true state of the code is locally or in git and you'll never
+    need to deal with issues where the states locally and remotely are not in
+    sync.
+  - You also get the benefits of structuring code within directories
+  - Individual developers can have separate devevelopment Apps Script projects,
+    and the overall solution can have shared test, ua-testing, and production
+    targets all with different settings.
+
+## Docs
+
+### gapps auth
+
+```
+  Usage: gapps auth [options] <path/to/client/secret.json>
+
+  Authorize gapps to use the Google Drive API
+
+  Options:
+
+    -b, --no-launch-browser  Do not use a local webserver to capture oauth code
+                              and instead require copy/paste of key returned in
+                              the browser after authorization completes.
+    -p, --port [port]        Port to use for webserver
+```
+
+Performs the authentication flow described in the quickstart above.
+
+### gapps init
+
+```
+  Usage: gapps init|create <fileId> [options]
+
+  Initialize blank project locally. The external Apps Script project must exist.
+
+  Options:
+    -k, --key [key]
+    -s, --subdir [subdir]
+    -o, --overwrite
+```
+
+Creates `gapps.config.json`, which contains information about your Apps Script project.
+
+### gapps upload
+
+```
+  Usage: gapps upload|push
+
+  Upload back to Google Drive. Run from root of project directory
+```
+
+Upload the project to Google Drive. Sources files from `./src` or the
+configured subdirectory.
+
+### gapps oauth-callback-url
+
+```
+  Usage: gapps deployment oauth-callback-url
+
+  Get the OAuth Callback URL for a project
+```
+
+Returns the OAuth Callback URL required by most 3rd-party OAuth services.
 
 ## Development
-If you catch a bug or have a question, please let me know! Submit an issue or pull request and I'll happy to address it. I'm also thinking about extending this to a version control system.
+Please submit any bugs to the Issues page. Pull Requests also welcome.
 
-If you want to develop (always welcome), clone down the repo and have at it! You can run `npm link` from the root directory of the repo to symlink to your local copy. You'll have to uninstall the production version first `npm uninstall -g node-google-apps-script`
+If you want to develop, clone down the repo and have at it! You can run
+`npm link` from the root directory of the repo to symlink to your local copy.
+You'll have to uninstall the production version first
+`npm uninstall -g node-google-apps-script`.
+
+## Limitations
+
+`gapps` allows you to nest files in folders, but the
+Apps Script platform expects a flat file structure. Because of this,
+**no files can have the same name, even if they are in separate directories**.
+One file will overwrite the other, making debugging difficult.
+
+Your add-on must be developed as a
+[standalone script](https://developers.google.com/apps-script/guides/standalone)
+and tested within Doc or Sheet. This means that it cannot use certain functions
+of [bound scripts](https://developers.google.com/apps-script/guides/bound),
+namely installable triggers. While testing within a Doc, you have access to the
+"Special methods" mentioned in
+[the docs](https://developers.google.com/apps-script/guides/bound), though. If
+you followed the quickstart above, you should be set up correctly.
+
+## Common Issues
+
+The Google Drive API frequently returns a *400* error without a helpful error
+message. Common causes for this are:
+
+- **javascript formatting errors**
+  - The server-side javascript code (`.js` or `.gs`) is validated upon upload.
+  - If there is a syntax error, the upload will fail.
+- The project does not exist yet.
+  - Verify that the project exists in your Google Drive folder.
+  - If you have been added to an existing project, verify that the owner has shared the file with you with the "can edit" permission.
+- Missing server-side libraries
+  - verify that any required Libraries (frequently `Underscore` or `OAuth2`) have been added
+    to the Apps Script project
+- Authentication error
+  - Verify that `~/.gapps` exists and has 4 values: `client_id`, `client_secret,
+    `redirect_uri`, and `refresh_token`
+  - To reset authentication, 'rm ~/.gapps' and then perform the
+    authentication steps in part #2 of the quickstart again.
+
+## Acknowledgements
+
+Huge thanks to [Shrugs](https://github.com/Shrugs) for a massive that bumped this project to v1.0
+
+## Extra Resources
+
+- [Google Apps Script Documentation](https://developers.google.com/apps-script/)

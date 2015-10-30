@@ -1,0 +1,54 @@
+#!/usr/bin/env node
+var program = require('commander');
+var path = require('path');
+var pkg = require('../package.json');
+var commands = path.join(__dirname, '../lib/commands');
+var upload = require(commands + '/upload');
+var init = require(commands + '/init');
+var oauthCallbackUrl = require(commands + '/oauthCallbackUrl');
+var _ = require('lodash');
+
+program
+  .version(pkg.version);
+
+program
+  .command('auth <path/to/client/secret.json>')
+  .option('-b, --no-launch-browser',
+    'Do not use a local webserver to capture oauth code and instead require copy/paste')
+  .option('-p, --port [port]', 'Port to use for webserver')
+  .description('Authorize gapps to use the Google Drive API')
+  .action(function(clientSecretPath, options) {
+    require(commands + '/auth')(clientSecretPath, options.launchBrowser)
+      .then(function() {
+        process.exit(0);
+      });
+  });
+
+program
+  .command('upload')
+  .description('Upload back to an Apps Script project in Google Drive. Run from root of project directory')
+  .alias('push')
+  .action(upload);
+
+program
+  .command('init <fileId>')
+  .option('-k, --key [key]')
+  .option('-s, --subdir [subdir]')
+  .option('-o, --overwrite')
+  .description('Initialize blank project. The external Apps Script project must exist.')
+  .alias('create')
+  .action(require(commands + '/init'));
+
+program
+  .command('oauth-callback-url')
+  .description('Get the OAuth Callback URL for a project')
+  .action(require(commands + '/oauthCallbackUrl'));
+
+program
+  .parse(process.argv);
+
+if (program.args.length < 1 ) {
+  console.log('No command specified.');
+  program.outputHelp();
+  process.exit(2);
+}
