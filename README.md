@@ -9,27 +9,18 @@ Using **gapps**, you can develop your Apps Script locally and push files to the 
 
 ## Quickstart
 
-### 1. Create and Save a Blank Apps Script Project
-
-1. Head to [https://script.google.com](https://script.google.com) and create a new blank project.
-2. Save the mostly empty project and give it a name.
-  - Saving is important; the project is not in your Google Drive until it is saved.
-
-### 2. Get Google Drive Credentials
+### 1. Get Google Drive Credentials
 
 You can do this one of two ways:
 
-1. Add Drive permissions to the default Developer Console Project that
-  is created for each Apps Script project
-2. Use an independent Developer Console Project and enable the Drive
-  API
+1. Add Drive permissions to the default Developer Console Project that is created for each Apps Script project
+1. Use an independent Developer Console Project and enable the Drive API
 
-#### 2.1 Default Apps Script Developer Console Project
+#### 1.1 Default Apps Script Developer Console Project
 
 1. Access the automatically created apps script Developer Console Project by
   1. `Resources` > `Developers Console Project`
-  1. Click on the blue link at the top (`project-name - api-project-##########`)
-    to access the correct Developer Console Project
+  1. Click on the blue link at the top (`project-name - api-project-##########`) to access the correct Developer Console Project
 1. Enable the Google Drive API
   1. Click `APIs & auth` in the left nav and then select `APIs`
   1. Search for `Drive` and select the Google Drive API listing.
@@ -42,7 +33,7 @@ You can do this one of two ways:
     - Save these credentials to a location of your choosing; `~/Downloads` is fine.
   1. You may close the Developer Console window.
 
-#### 2.2 Independent Developer Console Project
+#### 1.2 Independent Developer Console Project
 
 1. Create a new Dev Console Project
   1. Use [this link](https://console.developers.google.com/start/api?id=drive&credential=client_key) to create the project. It will auto-activate the Google Drive API.
@@ -62,7 +53,7 @@ You can do this one of two ways:
   1. You may close the Developer Console window.
     - To return to this project later, select `Resources` > `Developer Console Project` while editing your script. Then click the link at the top of the dialog to open the Developer Console with this project selected.
 
-### 3. Authenticate `gapps`
+### 2. Authenticate `gapps`
 
 This process will set up Google Drive authentication to allow uploading and importing of the Apps Script project.
 
@@ -73,24 +64,38 @@ This process will set up Google Drive authentication to allow uploading and impo
 
 You can pass the option `--no-launch-browser` to generate a url that will give you a code to paste back into the console. This is useful if you're using ssh to develop.
 
-### 4. Initialize your project
+### 3. Initialize your project
 
-This will create `gapps.config.json` and an empty directory for your source files.
+This will create `gapps.config.json` and a local directory with the current state of the Apps Script project. You can either use an existing project or create a new one.
 
+#### 3.1 An existing Apps Script project
+
+1. Navigate to your Apps Script project from Google Drive (must be a [standalone script](https://developers.google.com/apps-script/guides/standalone))
+1. Get your project ID from the address bar, located after `/d/` and before `/edit`.
+  - For example, '//script.google.com/a/google.com/d/__abc123-xyz098__/edit?usp=drive_web'
+1. Navigate to a directory where your Apps Script project will live
+1. Run `gapps init <fileId>` within your project directory.
+  - For example, `gapps init abc123-xyz098`
+
+#### 3.2 A new Apps Script project
+
+1. Head to [https://script.google.com](https://script.google.com) and create a new blank project.
+1. Save the mostly empty project and give it a name.
+  - Saving is important; the project is not in your Google Drive until it is saved.
 1. Get your project ID from the address bar, located after `/d/` and before `/edit`.
   - For example, '//script.google.com/a/google.com/d/__abc123-xyz098__/edit?usp=drive_web'
 1. Navigate to a directory where your Apps Script project will live
 1. Run `gapps init <fileId>` within your project directory. 
   - For example, `gapps init abc123-xyz098`
 
-### 5. Develop locally
+
+### 4. Develop locally
 
 Start scripting and enjoy total freedom of your local dev environment and source control options! Create script files with a `.gs` or `.js` extension and html files with a `.html` extension
 
-### 6. Upload New Files
+### 5. Upload New Files
 
-Awesome! Now, to upload changes, run `gapps upload`.
-You should then be able to reload your Apps Script project in the browser and see changes.
+Run `gapps upload` from within your project directory. You should then be able to reload your Apps Script project in the browser and see changes.
 
 
 ## Best Practices
@@ -162,31 +167,20 @@ Returns the OAuth Callback URL required by most 3rd-party OAuth services.
 ## Development
 Please submit any bugs to the Issues page. Pull Requests also welcome.
 
-If you want to develop, clone down the repo and have at it! You can run
-`npm link` from the root directory of the repo to symlink to your local copy.
-You'll have to uninstall the production version first
-`npm uninstall -g node-google-apps-script`.
+If you want to develop, clone down the repo and have at it! You can run `npm link` from the root directory of the repo to symlink to your local copy. You'll have to uninstall the production version first `npm uninstall -g node-google-apps-script`.
 
 ## Limitations
 
-`gapps` allows you to nest files in folders, but the
-Apps Script platform expects a flat file structure. Because of this,
-**no files can have the same name, even if they are in separate directories**.
-One file will overwrite the other, making debugging difficult.
+`gapps` allows you to nest files in folders, but the Apps Script platform expects a flat file structure. Because of this, **no files can have the same name, even if they are in separate directories**. One file will overwrite the other, making debugging difficult.
 
-Your add-on must be developed as a
-[standalone script](https://developers.google.com/apps-script/guides/standalone)
-and tested within Doc or Sheet. This means that it cannot use certain functions
-of [bound scripts](https://developers.google.com/apps-script/guides/bound),
-namely installable triggers. While testing within a Doc, you have access to the
-"Special methods" mentioned in
-[the docs](https://developers.google.com/apps-script/guides/bound), though. If
+Your add-on must be developed as a [standalone script](https://developers.google.com/apps-script/guides/standalone)
+and tested within Doc or Sheet. This means that it cannot use certain functions of [bound scripts](https://developers.google.com/apps-script/guides/bound), namely installable triggers. While testing within a Doc, you have access to the
+"Special methods" mentioned in [the docs](https://developers.google.com/apps-script/guides/bound), though. If
 you followed the quickstart above, you should be set up correctly.
 
 ## Common Issues
 
-The Google Drive API frequently returns a *400* error without a helpful error
-message. Common causes for this are:
+The Google Drive API frequently returns a *400* error without a helpful error message. Common causes for this are:
 
 - **javascript formatting errors**
   - The server-side javascript code (`.js` or `.gs`) is validated upon upload.
@@ -195,13 +189,10 @@ message. Common causes for this are:
   - Verify that the project exists in your Google Drive folder.
   - If you have been added to an existing project, verify that the owner has shared the file with you with the "can edit" permission.
 - Missing server-side libraries
-  - verify that any required Libraries (frequently `Underscore` or `OAuth2`) have been added
-    to the Apps Script project
+  - verify that any required Libraries (frequently `Underscore` or `OAuth2`) have been added to the Apps Script project
 - Authentication error
-  - Verify that `~/.gapps` exists and has 4 values: `client_id`, `client_secret,
-    `redirect_uri`, and `refresh_token`
-  - To reset authentication, 'rm ~/.gapps' and then perform the
-    authentication steps in part #2 of the quickstart again.
+  - Verify that `~/.gapps` exists and has 4 values: `client_id`, `client_secret, `redirect_uri`, and `refresh_token`
+  - To reset authentication, 'rm ~/.gapps' and then perform the authentication steps in part #2 of the quickstart again.
 
 ## Acknowledgements
 
