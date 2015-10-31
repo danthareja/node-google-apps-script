@@ -66,7 +66,7 @@ You can pass the option `--no-launch-browser` to generate a url that will give y
 
 ### 3. Initialize your project
 
-This will create `gapps.config.json` and a local directory with the current state of the Apps Script project. You can either use an existing project or create a new one.
+This proces will create `gapps.config.json` and a sub-directory where all Apps Script project files will be downloaded to. You can either use an existing project or create a new one.
 
 #### 3.1 An existing Apps Script project
 
@@ -95,7 +95,7 @@ Start scripting and enjoy total freedom of your local dev environment and source
 
 ### 5. Upload New Files
 
-Run `gapps upload` from within your project directory. You should then be able to reload your Apps Script project in the browser and see changes.
+Run `gapps upload` from within your project directory. You should then be able to reload your Apps Script project in the browser and see the changes.
 
 
 ## Best Practices
