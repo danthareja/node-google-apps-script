@@ -126,7 +126,7 @@ Performs the authentication flow described in the quickstart above.
 ### gapps init
 
 ```
-  Usage: gapps init|create <fileId> [options]
+  Usage: gapps init|clone <fileId> [options]
 
   Initialize blank project locally. The external Apps Script project must exist.
 
