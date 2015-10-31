@@ -34,7 +34,7 @@ program
   .option('-s, --subdir [subdir]')
   .option('-o, --overwrite')
   .description('Initialize blank project. The external Apps Script project must exist.')
-  .alias('create')
+  .alias('clone')
   .action(require(commands + '/init'));
 
 program
