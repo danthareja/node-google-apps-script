@@ -133,7 +133,7 @@ Performs the authentication flow described in the quickstart above.
 ```
   Usage: gapps init|clone <fileId> [options]
 
-  Initialize blank project locally. The external Apps Script project must exist.
+  Initialize project locally. The external Apps Script project must exist.
 
   Options:
     -k, --key [key]
@@ -141,7 +141,7 @@ Performs the authentication flow described in the quickstart above.
     -o, --overwrite
 ```
 
-Creates `gapps.config.json`, which contains information about your Apps Script project.
+Creates `gapps.config.json`, which contains information about your Apps Script project and downloads all project files into a subdirectory (default: `src/`)
 
 ### gapps upload
 

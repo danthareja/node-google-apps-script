@@ -33,7 +33,7 @@ program
   .option('-k, --key [key]')
   .option('-s, --subdir [subdir]')
   .option('-o, --overwrite')
-  .description('Initialize blank project. The external Apps Script project must exist.')
+  .description('Initialize project. The external Apps Script project must exist.')
   .alias('clone')
   .action(require(commands + '/init'));
 
