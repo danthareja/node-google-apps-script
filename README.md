@@ -184,7 +184,7 @@ The Google Drive API frequently returns a *400* error without a helpful error me
 - Missing server-side libraries
   - verify that any required Libraries (frequently `Underscore` or `OAuth2`) have been added to the Apps Script project
 - Authentication error
-  - Verify that `~/.gapps` exists and has 4 values: `client_id`, `client_secret, `redirect_uri`, and `refresh_token`
+  - Verify that `~/.gapps` exists and has 4 values: `client_id`, `client_secret`, `redirect_uri`, and `refresh_token`
   - To reset authentication, 'rm ~/.gapps' and then perform the authentication steps in part #2 of the quickstart again.
 
 ## Acknowledgements
