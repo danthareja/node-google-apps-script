@@ -31,41 +31,38 @@ You can do this one of two ways:
 
 #### 1.1 Default Apps Script Developer Console Project
 
-1. Access the automatically created apps script Developer Console Project by
-  1. `Resources` > `Cloud Platform Project`
-  1. Click on the blue link at the top (`project-name - api-project-##########`) to access the correct Developer Console Project
+1. Go to the [Google Cloud Platform] (https://console.cloud.google.com)
+1. Access the automatically created Google Apps Script Project `API Project`: click on the blue button at the top and select (`API Project - api-project-##########`) from the list.
 1. Enable the Google Drive API
-  1. Click `APIs & auth` in the left nav and then select `APIs`
-  1. Search for `Drive` and select the Google Drive API listing.
-  1. Click `Enable API`
+   1. Click `APIs & services` in the left nav and then select `Library`
+   1. Search for `Drive` and select the Google Drive API listing.
+   1. Click `Enable API`
 1. Acquire Google Drive Client Secret Credentials
-  1. In the `Credentials` section, select `Add credentials` and choose `OAuth 2.0 client ID`
-  1. In the menu that appears, choose `Other` for the `Application type`.
-  1. Give it any name you like and click `Create`.
-  1. Finally, download your credentials using the `Download as JSON` button to the right.
-    * Save these credentials to a location of your choosing; `~/Downloads` is fine.
-  1. You may close the Developer Console window.
+   1. If you just enabled the Drive API, hit `Create Credentials`, else, go to `Credentials` in the left menu, select `Create credentials` and choose `OAuth client ID`
+   1. Type in any `Product name` in the OAuth consent screen
+   1. In the menu that appears, choose `Other` for the `Application type`.
+   1. Give it any name you like and click `Create`.
+   1. Finally, download your credentials using the `Download as JSON` button to the right. Save these credentials to a location of your choosing; `~/Downloads` is fine.
+   1. You may close the Developer Console window.
 
 #### 1.2 Independent Developer Console Project
 
 1. Create a new Dev Console Project
-  1. Use [this link](https://console.developers.google.com/start/api?id=drive&credential=client_key) to create the project. It will auto-activate the Google Drive API.
-    * If you have multiple Google Accounts, append `&authuser=1` to the end of the url to choose which account to login with. Note that `authuser` is zero-indexed.
-  1. Make sure `Create a New Project` is selected and hit `Continue`.
-  1. Once the project has been created, click `Go to Credentials`.
+   1. Use [this link](https://console.developers.google.com/start/api?id=drive&credential=client_key) to create the project. It will auto-activate the Google Drive API. If you have multiple Google Accounts, append `&authuser=1` to the end of the url to choose which account to login with. Note that `authuser` is zero-indexed.
+   1. Make sure `Create a New Project` is selected and hit `Continue`.
+   1. Once the project has been created, click `Go to Credentials`.
 1. Acquire Google Drive Client Secret Credentials
-  1. Select `Add credentials`, choose the `OAuth 2.0 client ID` type
-  1. Click `Configure Consent Screen`.
-  1. Select your email address from the dropdown and assign your add-on a Project Name.
-    * This can always be changed later.
-  1. `Save` your Consent Screen
-  1. In the menu that appears, choose `Other` for the `Application type`.
-  1. Give it any name you like and click `Create`.
-  1. Finally, download your credentials using the `Download as JSON` button to the right.
-    * Save these credentials to a location of your choosing; `~/Downloads` is fine.
-  1. You may close the Developer Console window.
-    * To return to this project later, select `Resources` > `Developer Console Project` while editing your script. Then click the link at the top of the dialog to open the Developer Console with this project selected.
+   1. Select `Add credentials`, choose the `OAuth 2.0 client ID` type
+   1. Click `Configure Consent Screen`.
+   1. Select your email address from the dropdown and assign your add-on a Project Name. This can always be changed later.
+   1. `Save` your Consent Screen
+   1. In the menu that appears, choose `Other` for the `Application type`.
+   1. Give it any name you like and click `Create`.
+   1. Finally, download your credentials using the `Download as JSON` button to the right. Save these credentials to a location of your choosing; `~/Downloads` is fine.
+   1. You may close the Developer Console window.
 
+To return to this project later, select `Resources` > `Developer Console Project` while editing your script. Then click the link at the top of the dialog to open the Developer Console with this project selected.
+    
 ### 2. Authenticate `gapps`
 
 This process will set up Google Drive authentication to allow uploading and importing of the Apps Script project.
