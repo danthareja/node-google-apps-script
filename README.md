@@ -31,7 +31,7 @@ You can do this one of two ways:
 
 #### 1.1 Default Apps Script Developer Console Project
 
-1. Go to the [Google Cloud Platform] (https://console.cloud.google.com)
+1. Go to the [Google Cloud Platform](https://console.cloud.google.com)
 1. Access the automatically created Google Apps Script Project `API Project`: click on the blue button at the top and select (`API Project - api-project-##########`) from the list.
 1. Enable the Google Drive API
    1. Click `APIs & services` in the left nav and then select `Library`
