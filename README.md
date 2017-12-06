@@ -39,7 +39,7 @@ You can do this one of two ways:
    1. Click `Enable API`
 1. Acquire Google Drive Client Secret Credentials
    1. If you just enabled the Drive API, hit `Create Credentials`, else, go to `Credentials` in the left menu, select `Create credentials` and choose `OAuth client ID`
-   1. Type in any `Product name` in the OAuth consent screen
+   1. Select your email address from the dropdown OAuth consent screen and assign your add-on a `Project Name`. This can always be changed later.
    1. In the menu that appears, choose `Other` for the `Application type`.
    1. Give it any name you like and click `Create`.
    1. Finally, download your credentials using the `Download as JSON` button to the right. Save these credentials to a location of your choosing; `~/Downloads` is fine.
@@ -52,10 +52,8 @@ You can do this one of two ways:
    1. Make sure `Create a New Project` is selected and hit `Continue`.
    1. Once the project has been created, click `Go to Credentials`.
 1. Acquire Google Drive Client Secret Credentials
-   1. Select `Add credentials`, choose the `OAuth 2.0 client ID` type
-   1. Click `Configure Consent Screen`.
-   1. Select your email address from the dropdown and assign your add-on a Project Name. This can always be changed later.
-   1. `Save` your Consent Screen
+   1. Click client-ID in the grey paragraph
+   1. Select your email address from the dropdown OAuth consent screen and assign your add-on a `Project Name`. This can always be changed later.
    1. In the menu that appears, choose `Other` for the `Application type`.
    1. Give it any name you like and click `Create`.
    1. Finally, download your credentials using the `Download as JSON` button to the right. Save these credentials to a location of your choosing; `~/Downloads` is fine.
