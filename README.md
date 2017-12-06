@@ -23,13 +23,17 @@ Using **gapps**, you can develop your Apps Script locally and push files to the 
 ## Quickstart
 
 ### 1. Get Google Drive Credentials
+To use gapps you need access to your files on your Google Drive through the API provided by Google. To make this happen you to create a `Developer Console Project`. 
+
+__The only purpose of this project is providing access, this is not the Google Script project you will be working on!__.
 
 You can do this one of two ways:
 
-1. Add Drive permissions to the default Developer Console Project that is created for each Apps Script project
-1. Use an independent Developer Console Project and enable the Drive API
+1. Use the existing 'API Project' in the Developer Console
+1. Create an independent Developer Console Project (choose this when the default project is not available)
 
-#### 1.1 Default Apps Script Developer Console Project
+#### 1.1 Use the existing 'API Project' in the Developer Console
+This is the easiest approach because you don't need to create a new project. You will use the default Developer Console Project `API Project`, enable Google Drive and get credentials. 
 
 1. Go to the [Google Cloud Platform](https://console.cloud.google.com)
 1. Access the automatically created Google Apps Script Project `API Project`: click on the blue button at the top and select (`API Project - api-project-##########`) from the list.
@@ -38,14 +42,15 @@ You can do this one of two ways:
    1. Search for `Drive` and select the Google Drive API listing.
    1. Click `Enable API`
 1. Acquire Google Drive Client Secret Credentials
-   1. If you just enabled the Drive API, hit `Create Credentials`, else, go to `Credentials` in the left menu, select `Create credentials` and choose `OAuth client ID`
-   1. Select your email address from the dropdown OAuth consent screen and assign your add-on a `Project Name`. This can always be changed later.
+   1. If you just enabled the Drive API, hit `Create Credentials`, otherwise , go to `Credentials` in the left menu, select `Create credentials` and choose `OAuth client ID`
+   1. Select your email address from the dropdown OAuth consent screen and assign your add-on a `Project Name` i.e. `My API access project`. This can always be changed later.
    1. In the menu that appears, choose `Other` for the `Application type`.
-   1. Give it any name you like and click `Create`.
+   1. Give it any name you like (i.e. Macbook) and click `Create`.
    1. Finally, download your credentials using the `Download as JSON` button to the right. Save these credentials to a location of your choosing; `~/Downloads` is fine.
    1. You may close the Developer Console window.
 
-#### 1.2 Independent Developer Console Project
+#### 1.2 Create an independent Developer Console Project
+Use an independent Developer Console Project if the default `API Project` is deleted, in use or if you want to keep permissions separated.
 
 1. Create a new Dev Console Project
    1. Use [this link](https://console.developers.google.com/start/api?id=drive&credential=client_key) to create the project. It will auto-activate the Google Drive API. If you have multiple Google Accounts, append `&authuser=1` to the end of the url to choose which account to login with. Note that `authuser` is zero-indexed.
@@ -53,9 +58,9 @@ You can do this one of two ways:
    1. Once the project has been created, click `Go to Credentials`.
 1. Acquire Google Drive Client Secret Credentials
    1. Click client-ID in the grey paragraph
-   1. Select your email address from the dropdown OAuth consent screen and assign your add-on a `Project Name`. This can always be changed later.
+   1. Select your email address from the dropdown OAuth consent screen and assign your add-on a `Project Name` i.e. `My API access project`. This can always be changed later.
    1. In the menu that appears, choose `Other` for the `Application type`.
-   1. Give it any name you like and click `Create`.
+   1. Give it any name you like (i.e. Macbook) and click `Create`.
    1. Finally, download your credentials using the `Download as JSON` button to the right. Save these credentials to a location of your choosing; `~/Downloads` is fine.
    1. You may close the Developer Console window.
 
