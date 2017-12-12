@@ -23,9 +23,7 @@ Using **gapps**, you can develop your Apps Script locally and push files to the 
 ## Quickstart
 
 ### 1. Get Google Drive Credentials
-To use gapps you need access to your files on your Google Drive through the API provided by Google. To make this happen you to create a `Developer Console Project`. 
-
-__The only purpose of this project is providing access, this is not the Google Script project you will be working on!__.
+To use gapps you need access to your files on your Google Drive through the API provided by Google. To make this happen you have to create a `Developer Console Project`. 
 
 You can do this one of two ways:
 
