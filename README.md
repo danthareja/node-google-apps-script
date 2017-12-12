@@ -35,7 +35,7 @@ You can do this one of two ways:
 #### 1.1 Use the existing 'API Project' in the Developer Console
 This is the easiest approach because you don't need to create a new project. You will use the default Developer Console Project `API Project`, enable Google Drive and get credentials. 
 
-1. Go to the [Google Cloud Platform](https://console.cloud.google.com)
+1. While working in the editor on [script.google.com](https://script.google.com) select `Resources > Cloud Platform Project...` otherwise, go to the [Google Cloud Platform](https://console.cloud.google.com)
 1. Access the automatically created Google Apps Script Project `API Project`: click on the blue button at the top and select (`API Project - api-project-##########`) from the list.
 1. Enable the Google Drive API
    1. Click `APIs & services` in the left nav and then select `Library`
