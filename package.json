@@ -38,7 +38,7 @@
     "colors": "^1.0.3",
     "commander": "^2.7.1",
     "googleapis": "^2.0.5",
-    "lodash": "^3.9.3",
+    "lodash": "~4.17.4",
     "mkdirp": "^0.5.1",
     "node-dir": "^0.1.6",
     "request": "^2.54.0"
