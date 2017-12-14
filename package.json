@@ -34,14 +34,14 @@
   },
   "homepage": "https://github.com/danthareja/node-google-apps-script",
   "dependencies": {
-    "bluebird": "~3.5.1",
-    "colors": "~1.1.2",
+    "bluebird": "^3.5.1",
+    "colors": "^1.1.2",
     "commander": "^2.12.2",
-    "googleapis": "~20.1.0",
-    "lodash": "~4.17.4",
+    "googleapis": "^20.1.0",
+    "lodash": "^4.17.4",
     "mkdirp": "^0.5.1",
-    "node-dir": "0.1.x",
-    "request": "~2.83.0"
+    "node-dir": "^0.1.x",
+    "request": "^2.83.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
