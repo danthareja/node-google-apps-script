@@ -40,7 +40,7 @@
     "googleapis": "^2.0.5",
     "lodash": "~4.17.4",
     "mkdirp": "^0.5.1",
-    "node-dir": "^0.1.6",
+    "node-dir": "0.1.x",
     "request": "^2.54.0"
   },
   "scripts": {
