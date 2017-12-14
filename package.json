@@ -41,7 +41,7 @@
     "lodash": "~4.17.4",
     "mkdirp": "^0.5.1",
     "node-dir": "0.1.x",
-    "request": "^2.54.0"
+    "request": "~2.54.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
