@@ -17,7 +17,7 @@ Until a candidate has been selected for take over, I will not be able to review 
 Using **gapps**, you can develop your Apps Script locally and push files to the Apps Script servers. This allows you to use any editor of your choice, version control, and other modern webdev patterns in to Apps Script development.
 
 ## Requirements
-  - [node v0.12.x](https://nodejs.org/download/)
+  - [node >= 8](https://nodejs.org/download/)
   - `npm install -g node-google-apps-script`
 
 ## Quickstart
