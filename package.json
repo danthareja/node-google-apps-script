@@ -34,7 +34,7 @@
   },
   "homepage": "https://github.com/danthareja/node-google-apps-script",
   "dependencies": {
-    "bluebird": "^2.9.30",
+    "bluebird": "~3.5.1",
     "colors": "~1.1.2",
     "commander": "^2.12.2",
     "googleapis": "~20.1.0",
