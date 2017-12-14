@@ -37,7 +37,7 @@
     "bluebird": "^2.9.30",
     "colors": "^1.0.3",
     "commander": "^2.7.1",
-    "googleapis": "^2.0.5",
+    "googleapis": "~20.1.0",
     "lodash": "~4.17.4",
     "mkdirp": "^0.5.1",
     "node-dir": "0.1.x",
