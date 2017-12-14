@@ -15,9 +15,9 @@ program
     'Do not use a local webserver to capture oauth code and instead require copy/paste')
   .option('-p, --port [port]', 'Port to use for webserver')
   .description('Authorize gapps to use the Google Drive API')
-  .action(function(clientSecretPath, options) {
+  .action((clientSecretPath, options) => {
     require(commands + '/auth')(clientSecretPath, options.launchBrowser)
-      .then(function() {
+      .then(() => {
         process.exit(0);
       });
   });
