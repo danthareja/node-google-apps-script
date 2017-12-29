@@ -11,6 +11,11 @@ const writeFakeFile = () => fs.writeFileSync(defaults.STORAGE_FILE, 'f4k3');
 const spyOnConsoleLog = () => jest.spyOn(console, 'log').mockImplementation(() => {});
 const restoreConsole = () => jest.restoreAllMocks();
 
+const cleanUp = () => {
+    restoreConsole();
+    removeFile();
+}
+
 const clientSecret = {
     installed: {
         client_id: "424242424242-f4k3h4ck15h.apps.googleusercontent.com",
@@ -26,6 +31,8 @@ const clientSecret = {
     }
 };
 
+afterEach(cleanUp);
+
 test('should resolve the promise when a file already exists', async () => {
     writeFakeFile();
     const spied = spyOnConsoleLog();
@@ -33,14 +40,9 @@ test('should resolve the promise when a file already exists', async () => {
     const auth = await require('../../lib/commands/auth')();
     expect(auth).toBeUndefined();
     expect(spied.mock.calls[0][0]).toMatchSnapshot();
-    
-    restoreConsole();
-    removeFile();
 });
 
 test('should reject the promise when a previous file does not exists and a credential path is not provided', async () => {
-    await removeFile();
-
     try {
         await require('../../lib/commands/auth')();
     } catch (e) {
@@ -49,7 +51,6 @@ test('should reject the promise when a previous file does not exists and a crede
 });
 
 test('should start a authentication flow and print the oauth url when a clientSecret is provided', async (done) => {
-    await removeFile();
     const spied = spyOnConsoleLog();
 
     const fakeClientSecretPath = '/tmp/.fakeClientSecret';
