@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should complain if credentials are not in the OAuth 2.0 format 1`] = `"Path did not include \\"OAuth 2.0 client ID\\" credentials. Please check that you downloaded the right JSON credentials."`;
+
+exports[`should reject the promise when a previous file does not exists and a credential path is not provided 1`] = `"/tmp/.gapps-test does not exist yet. Specify a credential file with \`--auth ~/Downloads/client_secret_abcd.json\`"`;
+
+exports[`should resolve the promise when a file already exists 1`] = `"/tmp/.gapps-test already exists. Remove it to re-authenticate node-google-apps-script"`;
+
+exports[`should start a authentication flow and print the oauth url when a clientSecret is provided 1`] = `
+"[36m
+Please visit the following url in your browser (you'll only have to do this once):[39m"
+`;
