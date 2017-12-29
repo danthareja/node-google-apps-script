@@ -38,6 +38,7 @@ test('should resolve the promise when a file already exists', async () => {
     const spied = spyOnConsoleLog();
 
     const auth = await require('../../lib/commands/auth')();
+
     expect(auth).toBeUndefined();
     expect(spied.mock.calls[0][0]).toMatchSnapshot();
 });
@@ -58,15 +59,12 @@ test('should start a authentication flow and print the oauth url when a clientSe
 
     require('../../lib/commands/auth')(fakeClientSecretPath);
 
-
     // TODO: Find a better way
     // Now we are using setTimeout just to have enought time for the async code to run
     setTimeout(
         () => {
             expect(spied.mock.calls[0][0]).toMatchSnapshot();
             expect(spied.mock.calls[0][1]).toContain('https://');
-            expect(spied).toHaveBeenCalled();
-            spied.mockRestore();
             done();
         },
         1000
