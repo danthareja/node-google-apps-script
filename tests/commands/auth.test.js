@@ -8,7 +8,7 @@ const defaults = require('../../lib/defaults');
 const removeFile = () => unlinkAsync(defaults.STORAGE_FILE).catch(() => { });
 const writeFakeFile = () => fs.writeFileSync(defaults.STORAGE_FILE, 'f4k3');
 
-const spyConsole = () => jest.spyOn(console, 'log').mockImplementation(() => {});
+const spyOnConsoleLog = () => jest.spyOn(console, 'log').mockImplementation(() => {});
 const restoreConsole = () => jest.restoreAllMocks();
 
 const clientSecret = {
@@ -28,7 +28,7 @@ const clientSecret = {
 
 test('should resolve the promise when a file already exists', async () => {
     writeFakeFile();
-    const spied = spyConsole();
+    const spied = spyOnConsoleLog();
 
     const auth = await require('../../lib/commands/auth')();
     expect(auth).toBeUndefined();
@@ -40,6 +40,7 @@ test('should resolve the promise when a file already exists', async () => {
 
 test('should reject the promise when a previous file does not exists and a credential path is not provided', async () => {
     await removeFile();
+
     try {
         await require('../../lib/commands/auth')();
     } catch (e) {
@@ -49,10 +50,13 @@ test('should reject the promise when a previous file does not exists and a crede
 
 test('should start a authentication flow and print the oauth url when a clientSecret is provided', async (done) => {
     await removeFile();
+    const spied = spyOnConsoleLog();
+
     const fakeClientSecretPath = '/tmp/.fakeClientSecret';
     fs.writeFileSync(fakeClientSecretPath, JSON.stringify(clientSecret), 'utf-8');
+
     require('../../lib/commands/auth')(fakeClientSecretPath);
-    const spied = jest.spyOn(console, 'log').mockImplementation(() => {});
+
 
     // TODO: Find a better way
     // Now we are using setTimeout just to have enought time for the async code to run
