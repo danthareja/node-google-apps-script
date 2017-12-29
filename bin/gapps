@@ -1,24 +1,24 @@
 #!/usr/bin/env node
-const _ = require("lodash");
-const path = require("path");
-const program = require("commander");
-const pkg = require("../package.json");
+const _ = require('lodash');
+const path = require('path');
+const program = require('commander');
+const pkg = require('../package.json');
 
-const commands = path.join(__dirname, "../lib/commands");
+const commands = path.join(__dirname, '../lib/commands');
 
 program.version(pkg.version);
 
 program
-  .command("auth <path/to/client/secret.json>")
+  .command('auth <path/to/client/secret.json>')
   // Multi-word options starting with --no negate the boolean value of the following word
   .option(
-    "-b, --no-launch-browser",
-    "Do not use a local webserver to capture oauth code and instead require copy/paste"
+    '-b, --no-launch-browser',
+    'Do not use a local webserver to capture oauth code and instead require copy/paste'
   )
-  .option("-p, --port [port]", "Port to use for webserver")
-  .description("Authorize gapps to use the Google Drive API")
+  .option('-p, --port [port]', 'Port to use for webserver')
+  .description('Authorize gapps to use the Google Drive API')
   .action((clientSecretPath, options) => {
-    require(commands + "/auth")(clientSecretPath, options.launchBrowser).then(
+    require(commands + '/auth')(clientSecretPath, options.launchBrowser).then(
       () => {
         process.exit(0);
       }
@@ -26,33 +26,33 @@ program
   });
 
 program
-  .command("upload")
+  .command('upload')
   .description(
-    "Upload back to an Apps Script project in Google Drive. Run from root of project directory"
+    'Upload back to an Apps Script project in Google Drive. Run from root of project directory'
   )
-  .alias("push")
-  .action(require(commands + "/upload"));
+  .alias('push')
+  .action(require(commands + '/upload'));
 
 program
-  .command("init <fileId>")
-  .option("-k, --key [key]")
-  .option("-s, --subdir [subdir]")
-  .option("-o, --overwrite")
+  .command('init <fileId>')
+  .option('-k, --key [key]')
+  .option('-s, --subdir [subdir]')
+  .option('-o, --overwrite')
   .description(
-    "Initialize project. The external Apps Script project must exist."
+    'Initialize project. The external Apps Script project must exist.'
   )
-  .alias("clone")
-  .action(require(commands + "/init"));
+  .alias('clone')
+  .action(require(commands + '/init'));
 
 program
-  .command("oauth-callback-url")
-  .description("Get the OAuth Callback URL for a project")
-  .action(require(commands + "/oauthCallbackUrl"));
+  .command('oauth-callback-url')
+  .description('Get the OAuth Callback URL for a project')
+  .action(require(commands + '/oauthCallbackUrl'));
 
 program.parse(process.argv);
 
 if (program.args.length < 1) {
-  console.log("No command specified.");
+  console.log('No command specified.');
   program.outputHelp();
   process.exit(2);
 }
