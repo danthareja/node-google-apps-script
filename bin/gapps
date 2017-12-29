@@ -18,7 +18,6 @@ program
   .option("-p, --port [port]", "Port to use for webserver")
   .description("Authorize gapps to use the Google Drive API")
   .action((clientSecretPath, options) => {
-    process.exit(1);
     require(commands + "/auth")(clientSecretPath, options.launchBrowser).then(
       () => {
         process.exit(0);
