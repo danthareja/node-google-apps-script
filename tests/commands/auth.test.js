@@ -1,7 +1,11 @@
 const fs = require("fs");
 const { promisify } = require("util");
 const unlinkAsync = promisify(fs.unlink);
+
 jest.mock("../../lib/defaults");
+jest.mock("../../lib/miniOAuthServer");
+
+jest.mock("googleapis");
 
 const fakeClientSecretPath = "/tmp/.fakeClientSecret";
 const defaults = require("../../lib/defaults");
@@ -48,18 +52,17 @@ test("should reject the promise when a previous file does not exists and a crede
   }
 });
 
-test("should start a authentication flow and print the oauth url when a clientSecret is provided", async done => {
+test("should start a authentication flow and print the oauth url when a clientSecret is provided", async () => {
   fs.writeFileSync(fakeClientSecretPath, JSON.stringify(clientSecret), "utf-8");
 
-  require("../../lib/commands/auth")(fakeClientSecretPath);
+  const auth = require("../../lib/commands/auth");
+  await auth(fakeClientSecretPath);
 
-  // TODO: Find a better way
-  // Now we are using setTimeout just to have enought time for the async code to run
-  setTimeout(() => {
-    expect(spiedConsole.mock.calls[0][0]).toMatchSnapshot();
-    expect(spiedConsole.mock.calls[0][1]).toContain("https://");
-    done();
-  }, 1000);
+  expect(spiedConsole.mock.calls[0][0]).toMatchSnapshot();
+  expect(spiedConsole.mock.calls[0][1]).toContain("https://");
+
+  const obtainedCredentials = JSON.parse(fs.readFileSync(defaults.STORAGE_FILE));
+  expect(obtainedCredentials.refresh_token).toEqual("woot_successfully_obtained_refresh_token");
 });
 
 test("should complain if credentials are not in the OAuth 2.0 format", async done => {
