@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should check the provided fileId is not a project key 1`] = `
+"[31m
+Script file ID error.[39m
+It looks like you are passing in a Project Key, from \\"File --> Project properties\\",rather than a Drive File ID.
+You will find the Drive File ID in the script's URL:
+https://script.google.com/a/google.com/d/[32m__DRIVE_FILE_ID__[39m/edit.
+"
+`;
+
+exports[`should clone the project 1`] = `
+"// Project for testing node-google-apps-script
+
+function myFunction() {
+  
+}
+"
+`;
+
+exports[`should fail if a config file already exists 1`] = `"Config already exists. Cowardly refusing to overwrite."`;

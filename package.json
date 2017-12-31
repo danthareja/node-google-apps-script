@@ -51,6 +51,7 @@
   },
   "devDependencies": {
     "@types/jest": "^22.0.0",
-    "jest": "^22.0.4"
+    "jest": "^22.0.4",
+    "rimraf": "^2.6.2"
   }
 }
