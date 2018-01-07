@@ -44,9 +44,9 @@
     "request": "^2.83.0"
   },
   "scripts": {
-    "test": "jest -t=unit",
+    "test": "jest -t=unit --coverage",
     "test:integration": "jest -t=integration",
-    "test:all": "jest"
+    "test:all": "jest --coverage"
   },
   "engines": {
     "node": ">= 8"
