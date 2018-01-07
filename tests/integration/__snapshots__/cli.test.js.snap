@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`auth - integration should exit non zero if not provided with \`path/to/client/secret.json\` 1`] = `
+[Error: Command failed: node "./bin/gapps" auth
+
+  error: missing required argument \`path/to/client/secret.json'
+
+]
+`;
+
+exports[`auth - integration should support running without a local webserver 1`] = `
+"
+Please visit the following url in your browser (you'll only have to do this once): https://accounts.google.com/o/oauth2/auth?access_type=offline&approval_prompt=force&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive.scripts&response_type=code&client_id=424242424242-f4k3h4ck15h.apps.googleusercontent.com&redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob
+"
+`;
+
+exports[`auth - integration should work when provided with \`path/to/client/secret.json\` 1`] = `
+"
+Please visit the following url in your browser (you'll only have to do this once): https://accounts.google.com/o/oauth2/auth?access_type=offline&approval_prompt=force&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive.scripts&response_type=code&client_id=424242424242-f4k3h4ck15h.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A2386
+"
+`;

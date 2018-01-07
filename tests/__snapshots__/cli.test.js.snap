@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`auth should exit non zero if not provided with \`path/to/client/secret.json\` 1`] = `
-[Error: Command failed: node "./bin/gapps" auth
-
-  error: missing required argument \`path/to/client/secret.json'
-
-]
-`;
