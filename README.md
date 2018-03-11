@@ -1,13 +1,11 @@
 ---
-### :warning: A request for maintainers :construction:
+### :warning::rotating_light: DEPRECATION NOTICE :rotating_light::warning:
 
-This project was initially developed for my own personal use at work and reached a wider audience with the help of a few members on the Google Apps Script team. I do not have the capacity to maintain this project and I am asking you, the beloved community member, for help.
+Google has released [clasp](https://github.com/google/clasp), please use it instead.
 
-While the core commands are mostly stable, users have identified a few bugs and asked for some additional features. I need help taking action on these [issues](https://github.com/danthareja/node-google-apps-script/issues) and [pull requests](https://github.com/danthareja/node-google-apps-script/pulls), ideally from someone who uses this project in production.
+As per the discussion in [issue #86](https://github.com/danthareja/node-google-apps-script/issues/86), it does not make sense for these two projects to co-exist. This project is locked into it's final version and will receive no future updates.
 
-If you are interested in taking over this project, please [contact me](mailto:danthareja@gmail.com). I'm happy to provide anything you need in order to continue improving this useful tool for the community.
-
-Until a candidate has been selected for take over, I will not be able to review issues and pull requests. I encourage anyone interested in active development to do so in a fork.
+Happy scripting!
 
 ---
 
